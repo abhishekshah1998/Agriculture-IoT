@@ -1,15 +1,14 @@
 package com.example.myapplication;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GsmAuthentication extends AppCompatActivity {
+import android.os.Bundle;
+
+public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gsm_authentication);
+        setContentView(R.layout.menu);
     }
-
 }

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void gotoGsmActivity(View view) {
-        Intent intent = new Intent(this, GsmAuthentication.class);
+        Intent intent = new Intent(this, GsmAuthenticationActivity.class);
         startActivity(intent);
     }
 }
