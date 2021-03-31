@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class PostGsmAuth extends AppCompatActivity {
+
+    String name = "";
+    String num = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,15 @@ public class PostGsmAuth extends AppCompatActivity {
                 menuActivity();
             }
         });
+        TextView contactNameTextView = (TextView) findViewById(R.id.contact_name_post_gsm_textView);
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
+        if(b!=null){
+           name  = (String) b.get("name");
+           num = (String) b.get("num");
+        }
+        contactNameTextView.setText(name + "-" + num );
     }
 
     private void menuActivity() {
