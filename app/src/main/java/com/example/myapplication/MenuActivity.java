@@ -34,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void FieldFertigationActivity() {
-        Intent intent = new Intent(this, field_fertigation.class);
+        Intent intent = new Intent(this, FieldFertigation.class);
         startActivity(intent);
     }
 }
