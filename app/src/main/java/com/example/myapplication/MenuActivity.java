@@ -14,7 +14,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         Button fieldConfigurationButton = (Button)findViewById(R.id.field_irrigation_menu_button);
-        Button fieldFertigationButton = (Button)findViewById(R.id.button9);
+        Button fieldFertigationButton = (Button)findViewById(R.id.field_fertigation_menu_button);
         fieldConfigurationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
