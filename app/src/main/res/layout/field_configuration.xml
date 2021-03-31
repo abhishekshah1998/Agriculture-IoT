@@ -130,7 +130,8 @@ tools:context=".FieldConfiguration">
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <Button
+                android:id="@+id/on_time_configuration_button"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="2"
@@ -138,7 +139,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextTime"
+                android:id="@+id/on_time_configuration_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:ems="10"
@@ -150,7 +151,8 @@ tools:context=".FieldConfiguration">
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <Button
+                android:id="@+id/trigger_from_configuration_button"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="2"
@@ -158,7 +160,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextDate"
+                android:id="@+id/trigger_from_configuration_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:ems="10"
