@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class field_fertigation extends AppCompatActivity {
+public class FieldFertigation extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

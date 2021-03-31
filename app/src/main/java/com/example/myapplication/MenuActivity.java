@@ -17,12 +17,24 @@ public class MenuActivity extends AppCompatActivity {
         fieldConfigurationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FieldConfigurationActivity();
+                fieldConfigurationActivity();
+            }
+        });
+        final Button fieldFertigationButton = (Button)findViewById(R.id.field_fertigation_menu_button);
+        fieldFertigationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fieldFertigationActivity();
             }
         });
     }
 
-    private void FieldConfigurationActivity() {
+    private void fieldFertigationActivity() {
+        Intent intent = new Intent(this, FieldFertigation.class);
+        startActivity(intent);
+    }
+
+    private void fieldConfigurationActivity() {
         Intent intent = new Intent(this, FieldConfiguration.class);
         startActivity(intent);
     }

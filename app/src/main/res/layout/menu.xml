@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
+        app:layout_constraintTop_toBottomOf="@+id/field_fertigation_menu_button" />
 
     <Button
         android:id="@+id/button10"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button10" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/field_fertigation_menu_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
