@@ -7,7 +7,7 @@
     tools:context=".PostGsmAuth">
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/connect_post_gsm_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -17,14 +17,14 @@
         android:layout_marginRight="32dp"
         android:text="Connect"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/reset_connection_post_gsm_auth_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/reset_connection_post_gsm_auth_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

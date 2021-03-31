@@ -11,7 +11,13 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".PostGsmAuth" />
-        <activity android:name=".GsmAuthenticationActivity" />
+        <activity android:name=".GsmAuthenticationActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".FieldConfiguration" />
     </application>
 
 </manifest>
