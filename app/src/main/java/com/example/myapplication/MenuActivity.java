@@ -14,16 +14,27 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         Button fieldConfigurationButton = (Button)findViewById(R.id.field_irrigation_menu_button);
+        Button fieldFertigationButton = (Button)findViewById(R.id.button9);
         fieldConfigurationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FieldConfigurationActivity();
             }
         });
+        fieldFertigationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FieldFertigationActivity();
+            }
+        });
     }
 
     private void FieldConfigurationActivity() {
         Intent intent = new Intent(this, FieldConfiguration.class);
+        startActivity(intent);
+    }
+    private void FieldFertigationActivity() {
+        Intent intent = new Intent(this, field_fertigation.class);
         startActivity(intent);
     }
 }
