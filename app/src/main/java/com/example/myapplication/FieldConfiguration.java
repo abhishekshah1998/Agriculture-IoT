@@ -31,7 +31,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_configuration);
-        Button onTimeButton = (Button)findViewById(R.id.on_time_configuration_button);
+        EditText onTimeButton = (EditText) findViewById(R.id.on_time_configuration_edit_text);
         onTimeEditText = (EditText)findViewById(R.id.on_time_configuration_edit_text);
         onTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override

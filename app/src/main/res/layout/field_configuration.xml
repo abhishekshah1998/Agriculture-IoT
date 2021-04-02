@@ -134,8 +134,8 @@ tools:context=".FieldConfiguration">
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/on_time_configuration_button"
+            <TextView
+                android:id="@+id/on_time_configuration_text"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="2"
@@ -147,7 +147,7 @@ tools:context=".FieldConfiguration">
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:ems="10"
-                android:inputType="time" />
+                android:editable="false"/>
 
         </TableRow>
 
