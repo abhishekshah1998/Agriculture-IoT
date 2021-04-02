@@ -42,7 +42,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
-                android:id="@+id/colorSpinner"
+                android:id="@+id/field_number_configuration_spinner"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="3" />
@@ -60,9 +60,11 @@ tools:context=".FieldConfiguration">
                 android:text="Valve 'On' Period:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <SeekBar
-                android:id="@+id/seekBar"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/valve_on_period_configuration_edit_text"
+                android:layout_width="wrap_content"
+                android:ems="10"
+                android:inputType="number"
                 android:layout_height="40dp" />
 
         </TableRow>
@@ -79,9 +81,11 @@ tools:context=".FieldConfiguration">
                 android:text="Valve 'Off' Period:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <SeekBar
-                android:id="@+id/seekBar3"
+            <EditText
+                android:id="@+id/valve_off_period_configuration_edit_text"
                 android:layout_width="wrap_content"
+                android:ems="10"
+                android:inputType="number"
                 android:layout_height="40dp" />
 
         </TableRow>
@@ -151,20 +155,19 @@ tools:context=".FieldConfiguration">
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/trigger_from_configuration_button"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/trigger_from_configuration_text"
+                android:layout_width="2dp"
                 android:layout_height="40dp"
                 android:layout_weight="2"
                 android:text="Trigger from:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/trigger_from_configuration_edit_text"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/trigger_from_configuration_spinner"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:ems="10"
-                android:inputType="date" />
+                android:layout_weight="3" />
 
         </TableRow>
 
