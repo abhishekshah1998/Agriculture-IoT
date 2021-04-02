@@ -55,7 +55,8 @@
         android:ems="10"
         android:foregroundGravity="center_vertical|center|center_horizontal"
         android:hint="Old / Factory Password"
-        android:inputType="textPassword"
+        android:maxLength="6"
+        android:inputType="numberPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -68,12 +69,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:ems="10"
+        android:ems="6"
         android:hint="New Password"
-        android:inputType="textPassword"
+        android:maxLength="6"
+        android:inputType="numberPassword"
         app:layout_constraintBottom_toTopOf="@+id/set_gsm_authentication_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -95,4 +97,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
