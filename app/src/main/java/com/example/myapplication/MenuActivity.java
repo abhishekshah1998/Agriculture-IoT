@@ -27,6 +27,13 @@ public class MenuActivity extends AppCompatActivity {
                 FieldFertigationActivity();
             }
         });
+        Button fieldStatusButton = (Button)findViewById(R.id.display_summary_menu_button);
+        fieldStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FieldStatusActivity();
+            }
+        });
     }
 
     private void FieldConfigurationActivity() {
@@ -36,5 +43,8 @@ public class MenuActivity extends AppCompatActivity {
     private void FieldFertigationActivity() {
         Intent intent = new Intent(this, FieldFertigation.class);
         startActivity(intent);
+    }
+    private void FieldStatusActivity(){
+        startActivity(new Intent(this, FieldStatusActivity.class));
     }
 }
