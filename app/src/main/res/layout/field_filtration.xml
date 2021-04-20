@@ -151,5 +151,14 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="5dp"
         android:text="Disable Filtration" />
+    <TextView
+        android:id="@+id/status_field_filtration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:foregroundGravity="clip_horizontal"
+        android:gravity="center_horizontal"
+        android:text="Status: This is dummy data"
+        android:textSize="20sp" />
 
 </LinearLayout>

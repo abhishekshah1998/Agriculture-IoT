@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Set;
+
 public class MenuActivity extends AppCompatActivity {
 
     @Override
@@ -34,6 +36,31 @@ public class MenuActivity extends AppCompatActivity {
                 FieldStatusActivity();
             }
         });
+        
+        Button filtrationButton = (Button)findViewById(R.id.pump_filtration_menu_button);
+        filtrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FieldFiltrationActivity();
+            }
+        });
+        
+        Button settingsButton = (Button)findViewById(R.id.settings_menu_button);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingsActivity();
+            }
+        });
+    }
+
+    private void SettingsActivity() {
+
+        startActivity(new Intent(MenuActivity.this,SettingsActivity.class));
+    }
+
+    private void FieldFiltrationActivity() {
+        startActivity(new Intent(MenuActivity.this,FieldFiltration.class));
     }
 
     private void FieldConfigurationActivity() {

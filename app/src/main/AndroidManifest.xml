@@ -11,19 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".FieldFiltration" />
+        <activity android:name=".FieldStatusActivity"></activity>
+        <activity android:name=".MainActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+\        <activity android:name=".FieldFiltration" />
         <activity android:name=".FieldFertigation" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".PostGsmAuth" />
-        <activity android:name=".GsmAuthenticationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".GsmAuthenticationActivity"/>
         <activity android:name=".FieldConfiguration" />
+        <activity android:name=".SettingsActivity" />
     </application>
 
 </manifest>

@@ -3,12 +3,18 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,7 +80,45 @@ public class FieldStatusActivity extends AppCompatActivity implements DatePicker
 
             }
         });
+        table();
 
+    }
+
+    private void table() {
+        TableLayout stk = (TableLayout)findViewById(R.id.report_table);
+        TableRow tbrow0 = new TableRow(this);
+        TextView tv0 = new TextView(this);
+        tv0.setText(" Date ");
+        tv0.setTextColor(Color.BLACK);
+        tbrow0.addView(tv0);
+        TextView tv1 = new TextView(this);
+        tv1.setText(" Time ");
+        tv1.setTextColor(Color.BLACK);
+        tbrow0.addView(tv1);
+        TextView tv2 = new TextView(this);
+        tv2.setText(" Action ");
+        tv2.setTextColor(Color.BLACK);
+        tbrow0.addView(tv2);
+        stk.addView(tbrow0);
+        for (int i = 0; i < 5; i++) {
+            TableRow tbrow = new TableRow(this);
+            TextView t1v = new TextView(this);
+            t1v.setText("1/4/2021");
+            t1v.setTextColor(Color.BLACK);
+            t1v.setGravity(Gravity.CENTER);
+            tbrow.addView(t1v);
+            TextView t2v = new TextView(this);
+            t2v.setText("01:15");
+            t2v.setTextColor(Color.BLACK);
+            t2v.setGravity(Gravity.CENTER);
+            tbrow.addView(t2v);
+            TextView t3v = new TextView(this);
+            t3v.setText("Valve activated");
+            t3v.setTextColor(Color.BLACK);
+            t3v.setGravity(Gravity.CENTER);
+            tbrow.addView(t3v);
+            stk.addView(tbrow);
+        }
     }
 
     @Override

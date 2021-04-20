@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/pump_filtration_menu_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -53,10 +53,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button9" />
+        app:layout_constraintTop_toBottomOf="@+id/pump_filtration_menu_button" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/settings_menu_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
