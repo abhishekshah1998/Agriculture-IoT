@@ -11,8 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".FieldStatusActivity"></activity>
-        <activity android:name=".ReportSelection" />
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".FieldFiltration" />
         <activity android:name=".FieldFertigation" />
         <activity android:name=".MenuActivity" />
