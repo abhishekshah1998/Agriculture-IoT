@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/linearLayout"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
+    android:id="@+id/linearLayout"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:gravity="center_horizontal"
@@ -54,7 +58,7 @@ tools:context=".FieldConfiguration">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:text="Valve 'On' Period:"
@@ -63,9 +67,10 @@ tools:context=".FieldConfiguration">
             <EditText
                 android:id="@+id/valve_on_period_configuration_edit_text"
                 android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:ems="10"
-                android:inputType="number"
-                android:layout_height="40dp" />
+                android:hint="Minutes"
+                android:inputType="number" />
 
         </TableRow>
 
@@ -75,7 +80,7 @@ tools:context=".FieldConfiguration">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:text="Valve 'Off' Period:"
@@ -84,9 +89,10 @@ tools:context=".FieldConfiguration">
             <EditText
                 android:id="@+id/valve_off_period_configuration_edit_text"
                 android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:ems="10"
-                android:inputType="number"
-                android:layout_height="40dp" />
+                android:hint="Days"
+                android:inputType="number" />
 
         </TableRow>
 
@@ -96,7 +102,7 @@ tools:context=".FieldConfiguration">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text="Soil Dryness:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -104,7 +110,7 @@ tools:context=".FieldConfiguration">
             <EditText
                 android:id="@+id/editTextNumber"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:ems="10"
                 android:inputType="number" />
 
@@ -116,7 +122,7 @@ tools:context=".FieldConfiguration">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text="Soil Wetness:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -124,7 +130,7 @@ tools:context=".FieldConfiguration">
             <EditText
                 android:id="@+id/editTextNumber2"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:ems="10"
                 android:inputType="number" />
 
@@ -137,7 +143,7 @@ tools:context=".FieldConfiguration">
             <TextView
                 android:id="@+id/on_time_configuration_text"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text="Motor 'On' Time:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -145,19 +151,18 @@ tools:context=".FieldConfiguration">
             <EditText
                 android:id="@+id/on_time_configuration_edit_text"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:ems="10"
-                android:editable="false"/>
+                android:layout_height="match_parent"
+                android:editable="false"
+                android:ems="10" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="40dp">
 
             <TextView
                 android:id="@+id/trigger_from_configuration_text"
-                android:layout_width="2dp"
                 android:layout_height="40dp"
                 android:layout_weight="2"
                 android:text="Trigger from:"
@@ -190,14 +195,19 @@ tools:context=".FieldConfiguration">
         android:layout_marginTop="20dp"
         android:layout_marginRight="5dp"
         android:text="Disable Field Irrigation Valve" />
+
+
+</LinearLayout>
+
     <TextView
         android:id="@+id/status_field_configuration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="5dp"
         android:foregroundGravity="clip_horizontal"
         android:gravity="center_horizontal"
         android:text="Status: This is dummy data"
         android:textSize="20sp" />
 
-</LinearLayout>
+</FrameLayout>
