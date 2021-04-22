@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -79,6 +80,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 android.R.layout.simple_spinner_item, triggerFromArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         triggerFromSpinner.setAdapter(adapter1);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -99,5 +101,15 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         myMinute = minute;
         onTimeEditText.setText(Integer.toString(myHour)+':'+Integer.toString(myMinute));
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

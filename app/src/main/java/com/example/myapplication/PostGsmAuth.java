@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,10 +34,22 @@ public class PostGsmAuth extends AppCompatActivity {
            num = (String) b.get("num");
         }
         contactNameTextView.setText(name + "-" + num );
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void menuActivity() {
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

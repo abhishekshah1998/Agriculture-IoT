@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -52,6 +53,9 @@ public class MenuActivity extends AppCompatActivity {
                 SettingsActivity();
             }
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void SettingsActivity() {
@@ -73,5 +77,15 @@ public class MenuActivity extends AppCompatActivity {
     }
     private void FieldStatusActivity(){
         startActivity(new Intent(this, FieldStatusActivity.class));
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

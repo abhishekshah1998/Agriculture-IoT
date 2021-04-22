@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -81,6 +82,8 @@ public class FieldStatusActivity extends AppCompatActivity implements DatePicker
             }
         });
         table();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
     }
 
@@ -133,4 +136,14 @@ public class FieldStatusActivity extends AppCompatActivity implements DatePicker
 
 
    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
