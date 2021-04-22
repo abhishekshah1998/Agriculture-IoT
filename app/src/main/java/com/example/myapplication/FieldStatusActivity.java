@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -39,6 +40,7 @@ public class FieldStatusActivity extends AppCompatActivity implements DatePicker
         setContentView(R.layout.activity_field_status);
         fromDateEditText = (EditText)findViewById(R.id.from_date_field_status_edit_text);
         toDateEditText = (EditText)findViewById((R.id.to_date_field_status_edit_text));
+        Button fieldStatusButton = (Button)findViewById(R.id.generate_report_field_status_button);
 
         selectFieldNumber = (Spinner)findViewById(R.id.field_number_field_status_dropdown);
 
@@ -50,8 +52,8 @@ public class FieldStatusActivity extends AppCompatActivity implements DatePicker
         }
         filedNumberArray = fieldNumberList.toArray(filedNumberArray);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, filedNumberArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_list, filedNumberArray);
+        adapter.setDropDownViewResource(R.layout.spinner_list);
         selectFieldNumber.setAdapter(adapter);
 
         fromDateEditText.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +83,14 @@ public class FieldStatusActivity extends AppCompatActivity implements DatePicker
 
             }
         });
-        table();
+
+        fieldStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                table();
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -93,14 +102,17 @@ public class FieldStatusActivity extends AppCompatActivity implements DatePicker
         TextView tv0 = new TextView(this);
         tv0.setText(" Date ");
         tv0.setTextColor(Color.BLACK);
+        tv0.setGravity(Gravity.CENTER);
         tbrow0.addView(tv0);
         TextView tv1 = new TextView(this);
         tv1.setText(" Time ");
         tv1.setTextColor(Color.BLACK);
+        tv1.setGravity(Gravity.CENTER);
         tbrow0.addView(tv1);
         TextView tv2 = new TextView(this);
         tv2.setText(" Action ");
         tv2.setTextColor(Color.BLACK);
+        tv2.setGravity(Gravity.CENTER);
         tbrow0.addView(tv2);
         stk.addView(tbrow0);
         for (int i = 0; i < 5; i++) {

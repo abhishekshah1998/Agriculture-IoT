@@ -171,7 +171,7 @@ tools:context=".FieldConfiguration">
             <Spinner
                 android:id="@+id/trigger_from_configuration_spinner"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="3" />
 
         </TableRow>

@@ -64,8 +64,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         filedNumberArray = fieldNumberList.toArray(filedNumberArray);
         fieldNumberSpinner = (Spinner)findViewById(R.id.field_number_configuration_spinner);
         ArrayAdapter<String>    adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, filedNumberArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_list, filedNumberArray);
+        adapter.setDropDownViewResource(R.layout.spinner_list);
         fieldNumberSpinner.setAdapter(adapter);
 
 
@@ -77,8 +77,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         triggerFromArray = arrList.toArray(triggerFromArray);
         triggerFromSpinner = (Spinner)findViewById(R.id.trigger_from_configuration_spinner);
         ArrayAdapter<String>    adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, triggerFromArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_list, triggerFromArray);
+        adapter.setDropDownViewResource(R.layout.spinner_list);
         triggerFromSpinner.setAdapter(adapter1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -99,7 +99,12 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         myHour = hourOfDay;
         myMinute = minute;
-        onTimeEditText.setText(Integer.toString(myHour)+':'+Integer.toString(myMinute));
+        String am_or_pm = "am";
+        if (myHour > 12) {
+            myHour = myHour - 12;
+            am_or_pm = "pm";
+        }
+        onTimeEditText.setText(Integer.toString(myHour)+':'+Integer.toString(myMinute)+" "+am_or_pm);
 
     }
     @Override
