@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,10 +15,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class GsmAuthenticationActivity extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gsm_authentication);
+
         contactButton = (Button)findViewById(R.id.contact_gsm_authentication_button);
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +52,25 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
     }
 
     private void postGsmAuthActivity() {
-        Intent intent = new Intent(this, PostGsmAuth.class);
-        intent.putExtra("name",name);
-        intent.putExtra("num",num);
-        startActivity(intent);
+//        Intent intent = new Intent(this, PostGsmAuth.class);
+//        intent.putExtra("name",name);
+//        intent.putExtra("num",num);
+//        startActivity(intent);
+
+
+
+
+//        Intent intent=new Intent(getApplicationContext(),GsmAuthenticationActivity.class);
+//        PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
+       try {
+           SmsManager sms = SmsManager.getDefault();
+           sms.sendTextMessage("9049600422", null, "hello javatpoint", null, null);
+           Toast.makeText(getApplicationContext(),"Message Sent",Toast.LENGTH_LONG).show();
+       }
+        catch (Exception e)
+        {
+            Toast.makeText(getApplicationContext(),"Some fiels is Empty",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void getContactListActivity() {
