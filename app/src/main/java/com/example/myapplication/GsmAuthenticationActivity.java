@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.util.Base64;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -17,6 +19,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.SmsManager;
@@ -26,6 +29,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class GsmAuthenticationActivity extends AppCompatActivity{
 
@@ -37,10 +42,12 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
     String DELIVERED = "SMS_DELIVERED";
     String oldpwd, newpwd;
     EditText oldpwdEdit,newpwdEdit;
+    DatabaseHandler db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gsm_authentication);
+        db = new DatabaseHandler(this);
 
         contactButton = (Button)findViewById(R.id.contact_gsm_authentication_button);
         contactButton.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +79,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
 
 
     }
+
 
     private void postGsmAuthActivity() {
         Intent intent = new Intent(this, PostGsmAuth.class);
@@ -142,11 +150,27 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 oldpwd = oldpwdEdit.getText().toString();
                 newpwd = newpwdEdit.getText().toString();
                 String response = "AU "+oldpwd+" "+newpwd;
+                Log.d("Insert: ", "Inserting ..");
+                db.addContact(new Contact(name, num.toString()));
                 sms.sendTextMessage(num.toString(), null, response, sentPI, deliveredPI);
                 Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+
+                readContacts();
+
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private void readContacts() {
+        Log.d("Reading: ", "Reading all contacts..");
+        List<Contact> contacts = db.getAllContacts();
+        for (Contact cn : contacts) {
+            String log = "Id: " + cn.getID() + " ,Name: " + cn.getName() + " ,Phone: " +
+                    cn.getPhoneNumber();
+            // Writing Contacts to log
+            Log.d("Name: ", log);
         }
     }
 

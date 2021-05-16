@@ -8,11 +8,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PostGsmAuth extends AppCompatActivity {
 
     String name = "";
     String num = "";
+    DatabaseHandler db;
+    Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class PostGsmAuth extends AppCompatActivity {
         TextView contactNameTextView = (TextView) findViewById(R.id.contact_name_post_gsm_textView);
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
+        db = new DatabaseHandler(this);
 
         if(b!=null){
            name  = (String) b.get("name");
@@ -35,6 +39,9 @@ public class PostGsmAuth extends AppCompatActivity {
         }
         contactNameTextView.setText(name + "-" + num );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        contact = db.getContact(1);
+        Toast.makeText(getApplicationContext(),contact.getPhoneNumber(),Toast.LENGTH_LONG).show();
 
     }
 
