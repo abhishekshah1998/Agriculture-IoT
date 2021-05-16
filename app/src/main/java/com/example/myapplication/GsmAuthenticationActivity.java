@@ -24,9 +24,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-public class GsmAuthenticationActivity extends AppCompatActivity {
+public class GsmAuthenticationActivity extends AppCompatActivity{
 
     private final int REQUEST_CODE=99;
     Button contactButton;
@@ -34,6 +35,8 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
     String name = "";
     String SENT = "SMS_SENT";
     String DELIVERED = "SMS_DELIVERED";
+    String oldpwd, newpwd;
+    EditText oldpwdEdit,newpwdEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +57,27 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+        }
+         oldpwdEdit = (EditText)findViewById(R.id.old_pwd_gsm_auth_input_text);
+
+         newpwdEdit = (EditText)findViewById(R.id.new_pwd_gsm_auth_input_text);
+
+        readMessage();
+
+    }
+
+    private void readMessage() {
+
 
     }
 
     private void postGsmAuthActivity() {
-//        Intent intent = new Intent(this, PostGsmAuth.class);
-//        intent.putExtra("name",name);
-//        intent.putExtra("num",num);
-//        startActivity(intent);
+        Intent intent = new Intent(this, PostGsmAuth.class);
+        intent.putExtra("name",name);
+        intent.putExtra("num",num);
+        startActivity(intent);
 
 
 
@@ -123,8 +139,11 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                     }
                 }, new IntentFilter(DELIVERED));
                 SmsManager sms = SmsManager.getDefault();
-                sms.sendTextMessage("9049600422", null, "hi winod", sentPI, deliveredPI);
-                Toast.makeText(getApplicationContext(), "Message Sent", Toast.LENGTH_LONG).show();
+                oldpwd = oldpwdEdit.getText().toString();
+                newpwd = newpwdEdit.getText().toString();
+                String response = "AU "+oldpwd+" "+newpwd;
+                sms.sendTextMessage(num.toString(), null, response, sentPI, deliveredPI);
+                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
