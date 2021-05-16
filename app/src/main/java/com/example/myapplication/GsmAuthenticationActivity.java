@@ -123,7 +123,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                     }
                 }, new IntentFilter(DELIVERED));
                 SmsManager sms = SmsManager.getDefault();
-                sms.sendTextMessage("9049600422", null, "hi winod", sentPI, deliveredPI);
+                sms.sendTextMessage("9028531389", null, "hi", sentPI, deliveredPI);
                 Toast.makeText(getApplicationContext(), "Message Sent", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();

@@ -104,6 +104,8 @@ tools:context=".FieldConfiguration">
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:foregroundGravity="center"
+                android:gravity="center_vertical"
                 android:text="Soil Dryness:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -124,6 +126,8 @@ tools:context=".FieldConfiguration">
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:foregroundGravity="center"
+                android:gravity="center_vertical"
                 android:text="Soil Wetness:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -145,6 +149,8 @@ tools:context=".FieldConfiguration">
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:foregroundGravity="center"
+                android:gravity="center_vertical"
                 android:text="Motor 'On' Time:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -157,21 +163,20 @@ tools:context=".FieldConfiguration">
 
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
+        <TableRow android:layout_width="match_parent">
 
             <TextView
                 android:id="@+id/trigger_from_configuration_text"
                 android:layout_height="40dp"
                 android:layout_weight="2"
+                android:foregroundGravity="center"
+                android:gravity="center_vertical"
                 android:text="Trigger from:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
                 android:id="@+id/trigger_from_configuration_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="3" />
 
         </TableRow>
