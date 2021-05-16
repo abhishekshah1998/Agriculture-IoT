@@ -62,14 +62,17 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
 
 //        Intent intent=new Intent(getApplicationContext(),GsmAuthenticationActivity.class);
 //        PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
-       try {
-           SmsManager sms = SmsManager.getDefault();
-           sms.sendTextMessage("9049600422", null, "hello javatpoint", null, null);
-           Toast.makeText(getApplicationContext(),"Message Sent",Toast.LENGTH_LONG).show();
-       }
-        catch (Exception e)
-        {
-            Toast.makeText(getApplicationContext(),"Some fiels is Empty",Toast.LENGTH_LONG).show();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
+        }
+        else {
+            try {
+                SmsManager sms = SmsManager.getDefault();
+                sms.sendTextMessage("9049600422", null, "hello javatpoint", null, null);
+                Toast.makeText(getApplicationContext(), "Message Sent", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
