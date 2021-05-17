@@ -110,7 +110,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/soil_dry_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -132,7 +132,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/soil_wtness_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -184,7 +184,7 @@ tools:context=".FieldConfiguration">
     </TableLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enable_field_config_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -193,7 +193,7 @@ tools:context=".FieldConfiguration">
         android:text="Enable Field Irrigation Valve" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/disable_field_config_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"

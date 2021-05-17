@@ -26,6 +26,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     String tiggerFrom = "";
     int day, month, year, hour, minute;
     int myday, myMonth, myYear, myHour, myMinute;
+
     EditText onTimeEditText, fromTriggerEditText;
     Spinner triggerFromSpinner, fieldNumberSpinner;
     @Override

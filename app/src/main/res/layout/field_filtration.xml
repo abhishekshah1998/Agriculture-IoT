@@ -98,7 +98,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/soil_dry_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -124,7 +124,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/soil_wtness_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -169,7 +169,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enable_field_config_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -178,7 +178,7 @@
         android:text="Enable Filtration" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/disable_field_config_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
