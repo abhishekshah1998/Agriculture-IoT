@@ -42,10 +42,10 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     String onTime = "";
     String tiggerFrom = "";
     int day, month, year, hour, minute;
-    int myday, myMonth, myYear, myHour, myMinute,myMinute1;
+    int myday, myMonth, myYear, myHour,myMinute1,myHour1;
     EditText onTimeEditText;
     Spinner triggerFromSpinner, fieldNumberSpinner, prioritySpinner;
-    String fieldNumber, priority, trigger_from;
+    String fieldNumber, priority, trigger_from,valveOn,valveOff,soilDryness,soilWetness,myMinute;
 
     String oldpwd, newpwd;
     EditText valve_on,valve_off,soil_dryness,soil_wetness;
@@ -120,10 +120,12 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         enable_field_irrigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
+                priority = prioritySpinner.getSelectedItem().toString();
+                trigger_from = triggerFromSpinner.getSelectedItem().toString();
                 enable_field_irrigation_activity();
-                String fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
-                String priority = prioritySpinner.getSelectedItem().toString();
-                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
+
+
             }
         });
 
@@ -132,8 +134,6 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     }
 
     private void enable_field_irrigation_activity() {
-        Intent intent = new Intent(this, PostGsmAuth.class);
-        startActivity(intent);
 
 
 
@@ -200,14 +200,35 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
 //                String priority = prioritySpinner.getSelectedItem().toString();
 //                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
 
-                String valveOn = valve_on.getText().toString();
-                String valveOff = valve_off.getText().toString();
-                String soilDryness = soil_dryness.getText().toString();
-                String soilWetness = soil_wetness.getText().toString();
-               // String motorOn = onTimeEditText.getText().toString();
+                valveOn = valve_on.getText().toString();
+                valveOff = valve_off.getText().toString();
+                soilDryness = soil_dryness.getText().toString();
+                soilWetness = soil_wetness.getText().toString();
 
-                String response1 = "SET"+fieldNumber+" "+valveOn+" "+valveOff+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from;
+                String response1 = "SET "+fieldNumber+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from;
                 byte[] data = response1.getBytes("UTF-8");
+                if (checkfields(fieldNumber))
+                    return;
+                if (checkfields(valveOff))
+                    return;
+                if (checkfields(valveOn))
+                    return;
+                if (checkfields(soilDryness))
+                    return;
+                if (checkfields(soilWetness))
+                    return;
+                if (checkfields(priority))
+                    return;
+                if (checkfields(trigger_from))
+                    return;
+                if (checkfields(Integer.toString(myHour)))
+                    return;
+                if (checkfields(myMinute))
+                    return;
+
+                Intent intent = new Intent(this, PostGsmAuth.class);
+                startActivity(intent);
+
                 String response = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage("9028531389", null, response, sentPI, deliveredPI);
                 Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
@@ -218,17 +239,25 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         }
     }
 
+    private Boolean checkfields(String s){
+
+        if (s == null){
+            Toast.makeText(getApplicationContext(),"Fill all the fields", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
+    }
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         myHour = hourOfDay;
         myMinute1 = minute;
-        String myMinute = String.format("%02d", myMinute1);
+        myMinute = String.format("%02d", myMinute1);
         String am_or_pm = "AM";
         if (myHour > 12) {
-            myHour = myHour - 12;
+            myHour1 = myHour - 12;
             am_or_pm = "PM";
         }
-        onTimeEditText.setText(Integer.toString(myHour)+':'+myMinute+" "+am_or_pm);
+        onTimeEditText.setText(Integer.toString(myHour1)+':'+myMinute+" "+am_or_pm);
 
     }
     @Override
