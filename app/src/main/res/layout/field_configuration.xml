@@ -110,7 +110,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/soil_dryness"
+                android:id="@+id/editTextNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -132,7 +132,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/soil_wetness"
+                android:id="@+id/editTextNumber2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -166,29 +166,8 @@ tools:context=".FieldConfiguration">
         <TableRow android:layout_width="match_parent">
 
             <TextView
-                android:id="@+id/priority_configuration_text"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:foregroundGravity="center"
-                android:gravity="center_vertical"
-                android:text="Priority:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/priority_configuration_spinner"
-                android:layout_height="match_parent"
-                android:layout_weight="3" />
-
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <TextView
                 android:id="@+id/trigger_from_configuration_text"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_weight="2"
                 android:foregroundGravity="center"
                 android:gravity="center_vertical"
@@ -197,7 +176,7 @@ tools:context=".FieldConfiguration">
 
             <Spinner
                 android:id="@+id/trigger_from_configuration_spinner"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:layout_weight="3" />
 
         </TableRow>
@@ -205,7 +184,7 @@ tools:context=".FieldConfiguration">
     </TableLayout>
 
     <Button
-        android:id="@+id/enable_field_irrigation"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"

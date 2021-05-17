@@ -33,14 +33,14 @@ public class PostGsmAuth extends AppCompatActivity {
         Bundle b = intent.getExtras();
         db = new DatabaseHandler(this);
 
-        if(b!=null){
-           name  = (String) b.get("name");
-           num = (String) b.get("num");
-        }
-        contactNameTextView.setText(name + "-" + num );
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         contact = db.getContact(1);
+        num = contact.getPhoneNumber();
+        name = contact.getName();
+        contactNameTextView.setText(name + "-" + num );
+
         Toast.makeText(getApplicationContext(),contact.getPhoneNumber(),Toast.LENGTH_LONG).show();
 
     }

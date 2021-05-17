@@ -82,9 +82,21 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
 
 
     private void postGsmAuthActivity() {
+
+
+        if (name == ""){
+            Toast.makeText(getApplicationContext(),"Select Contact",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (oldpwdEdit.getText().toString().trim().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(),"Fill the old password field",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (newpwdEdit.getText().toString().trim().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(),"Fill the new password field",Toast.LENGTH_LONG).show();
+            return;
+        }
         Intent intent = new Intent(this, PostGsmAuth.class);
-        intent.putExtra("name",name);
-        intent.putExtra("num",num);
         startActivity(intent);
 
 
@@ -152,6 +164,8 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 String response = "AU "+oldpwd+" "+newpwd;
                 Log.d("Insert: ", "Inserting ..");
                 db.addContact(new Contact(name, num.toString()));
+
+
                 sms.sendTextMessage(num.toString(), null, response, sentPI, deliveredPI);
                 Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
 

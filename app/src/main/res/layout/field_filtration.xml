@@ -98,7 +98,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/soil_dryness"
+                android:id="@+id/editTextNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -124,7 +124,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/soil_wetness"
+                android:id="@+id/editTextNumber2"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -169,7 +169,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/enable_field_irrigation"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
