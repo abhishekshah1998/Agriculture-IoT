@@ -133,8 +133,6 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
 
     private void enable_field_irrigation_activity() {
         Intent intent = new Intent(this, PostGsmAuth.class);
-        intent.putExtra("name",name);
-        intent.putExtra("num",num);
         startActivity(intent);
 
 

@@ -165,8 +165,9 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 Log.d("Insert: ", "Inserting ..");
                 db.addContact(new Contact(name, num.toString()));
 
-
-                sms.sendTextMessage(num.toString(), null, response, sentPI, deliveredPI);
+                byte[] data = response.getBytes("UTF-8");
+                String response1 = Base64.encodeToString(data, Base64.DEFAULT);
+                sms.sendTextMessage(num.toString(), null, response1, sentPI, deliveredPI);
                 Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
 
                 readContacts();
