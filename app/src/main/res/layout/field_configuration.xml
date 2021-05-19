@@ -65,7 +65,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/valve_on_period_configuration_edit_text"
+                android:id="@+id/delay_start_fertigation"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -205,7 +205,7 @@ tools:context=".FieldConfiguration">
     </TableLayout>
 
     <Button
-        android:id="@+id/enable_field_irrigation"
+        android:id="@+id/enable_button_field_fertigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -214,7 +214,7 @@ tools:context=".FieldConfiguration">
         android:text="Enable Field Irrigation Valve" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/disable_field_fertigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"

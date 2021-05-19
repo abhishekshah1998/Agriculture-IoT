@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
@@ -22,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
@@ -70,7 +68,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
             }
         });
 
-        valve_on = (EditText) findViewById(R.id.valve_on_period_configuration_edit_text);
+        valve_on = (EditText) findViewById(R.id.delay_start_fertigation);
         valve_off = (EditText) findViewById(R.id.valve_off_period_configuration_edit_text);
         soil_dryness = (EditText) findViewById(R.id.soil_dryness);
         soil_wetness = (EditText) findViewById(R.id.soil_wetness);
@@ -116,7 +114,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         triggerFromSpinner.setAdapter(adapter1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button enable_field_irrigation = (Button)findViewById(R.id.enable_field_irrigation);
+        Button enable_field_irrigation = (Button)findViewById(R.id.enable_button_field_fertigation);
         enable_field_irrigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
