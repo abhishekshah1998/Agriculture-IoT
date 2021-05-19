@@ -56,9 +56,9 @@ public class FieldFertigation extends AppCompatActivity {
                 R.layout.spinner_list, filedNumberArray);
         adapter.setDropDownViewResource(R.layout.spinner_list);
         fieldNumberSpinner.setAdapter(adapter);
-        enableButton= (Button)findViewById(R.id.enable_button_field_fertigation);
+        enableButton= (Button)findViewById(R.id.enable_field_filtration);
         disableButton = (Button)findViewById(R.id.disable_field_fertigation);
-        delayEdit = (EditText)findViewById(R.id.delay_start_fertigation);
+        delayEdit = (EditText)findViewById(R.id.delay_1);
         onTimeEdit = (EditText)findViewById(R.id.on_time_fertigation);
         iterationEdit = (EditText)findViewById(R.id.no_of_iterations_fertigation);
         enableButton.setOnClickListener(new View.OnClickListener() {

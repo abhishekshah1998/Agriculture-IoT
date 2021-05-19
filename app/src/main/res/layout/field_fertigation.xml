@@ -65,7 +65,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/delay_start_fertigation"
+                android:id="@+id/delay_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -121,7 +121,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/enable_button_field_fertigation"
+        android:id="@+id/enable_field_filtration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"

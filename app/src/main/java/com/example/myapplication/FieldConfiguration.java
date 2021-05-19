@@ -58,8 +58,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_configuration);
-        EditText onTimeButton = (EditText) findViewById(R.id.on_time_configuration_edit_text);
-        onTimeEditText = (EditText)findViewById(R.id.on_time_configuration_edit_text);
+        EditText onTimeButton = (EditText) findViewById(R.id.separation);
+        onTimeEditText = (EditText)findViewById(R.id.separation);
         onTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,8 +71,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
             }
         });
 
-        valve_on = (EditText) findViewById(R.id.delay_start_fertigation);
-        valve_off = (EditText) findViewById(R.id.valve_off_period_configuration_edit_text);
+        valve_on = (EditText) findViewById(R.id.delay_1);
+        valve_off = (EditText) findViewById(R.id.delay_2);
         soil_dryness = (EditText) findViewById(R.id.soil_dryness);
         soil_wetness = (EditText) findViewById(R.id.soil_wetness);
         db = new DatabaseHandler(this);
@@ -120,7 +120,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         triggerFromSpinner.setAdapter(adapter1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button enable_field_irrigation = (Button)findViewById(R.id.enable_button_field_fertigation);
+        Button enable_field_irrigation = (Button)findViewById(R.id.enable_field_filtration);
         enable_field_irrigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -65,7 +65,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/delay_start_fertigation"
+                android:id="@+id/delay_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -87,7 +87,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/valve_off_period_configuration_edit_text"
+                android:id="@+id/delay_2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -155,7 +155,7 @@ tools:context=".FieldConfiguration">
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/on_time_configuration_edit_text"
+                android:id="@+id/separation"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:hint="Click here to select time"
@@ -206,7 +206,7 @@ tools:context=".FieldConfiguration">
     </TableLayout>
 
     <Button
-        android:id="@+id/enable_button_field_fertigation"
+        android:id="@+id/enable_field_filtration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
