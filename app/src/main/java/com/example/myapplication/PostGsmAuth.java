@@ -39,7 +39,7 @@ public class PostGsmAuth extends AppCompatActivity {
         contact = db.getContact(1);
         num = contact.getPhoneNumber();
         name = contact.getName();
-        contactNameTextView.setText(name + "-" + num );
+        contactNameTextView.setText(name + " - " + num );
 
         Toast.makeText(getApplicationContext(),contact.getPhoneNumber(),Toast.LENGTH_LONG).show();
 

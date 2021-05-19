@@ -215,7 +215,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                             while (numbers.moveToNext()) {
                                 num = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 name = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                                contactButton.setText(name + "-" + num);
+                                contactButton.setText(name + " - " + num);
                             }
 
                         }
