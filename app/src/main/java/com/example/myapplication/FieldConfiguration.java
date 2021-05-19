@@ -34,22 +34,25 @@ import java.util.List;
 public class FieldConfiguration extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     String num = "";
-    String name = "";
     String SENT = "SMS_SENT";
     String DELIVERED = "SMS_DELIVERED";
-    String onTime = "";
-    String tiggerFrom = "";
-    int day, month, year, hour, minute;
-    int myday, myMonth, myYear, myHour,myMinute1,myHour1;
+    int hour, minute;
+    int myHour,myMinute1,myHour1;
     EditText onTimeEditText;
     Spinner triggerFromSpinner, fieldNumberSpinner, prioritySpinner;
-    String fieldNumber, priority, trigger_from,valveOn,valveOff,soilDryness,soilWetness,myMinute;
+    String fieldNumber;
+    String priority;
+    int trigger_from;
+    String valveOn;
+    String valveOff;
+    String soilDryness;
+    String soilWetness;
+    String myMinute;
 
-    String oldpwd, newpwd;
+    DatabaseHandler db;
+    Contact contact;
+
     EditText valve_on,valve_off,soil_dryness,soil_wetness;
-
-    //String text = mySpinner.getSelectedItem().toString();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,9 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         valve_off = (EditText) findViewById(R.id.valve_off_period_configuration_edit_text);
         soil_dryness = (EditText) findViewById(R.id.soil_dryness);
         soil_wetness = (EditText) findViewById(R.id.soil_wetness);
+        db = new DatabaseHandler(this);
+        contact = db.getContact(1);
+        num = contact.getPhoneNumber();
 
 
 
@@ -120,7 +126,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
             public void onClick(View v) {
                 fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
                 priority = prioritySpinner.getSelectedItem().toString();
-                trigger_from = triggerFromSpinner.getSelectedItem().toString();
+                //trigger_from = triggerFromSpinner.getSelectedItem().toString();
+                trigger_from = triggerFromSpinner.getSelectedItemPosition();
                 enable_field_irrigation_activity();
 
 
@@ -203,7 +210,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 soilDryness = soil_dryness.getText().toString();
                 soilWetness = soil_wetness.getText().toString();
 
-                String response1 = "SET "+fieldNumber+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from;
+                String response1 = "SET"+fieldNumber+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from;
                 byte[] data = response1.getBytes("UTF-8");
                 if (checkfields(fieldNumber))
                     return;
@@ -217,7 +224,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     return;
                 if (checkfields(priority))
                     return;
-                if (checkfields(trigger_from))
+                if (checkfields(String.valueOf(trigger_from)))
                     return;
                 if (checkfields(Integer.toString(myHour)))
                     return;
@@ -228,7 +235,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 startActivity(intent);
 
                 String response = Base64.encodeToString(data, Base64.DEFAULT);
-                sms.sendTextMessage("9028531389", null, response, sentPI, deliveredPI);
+                sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
                 Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -255,7 +262,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
             myHour1 = myHour - 12;
             am_or_pm = "PM";
         }
-        onTimeEditText.setText(Integer.toString(myHour1)+':'+myMinute+" "+am_or_pm);
+
+        onTimeEditText.setText(myHour1+':'+myMinute+" "+am_or_pm);
 
     }
     @Override

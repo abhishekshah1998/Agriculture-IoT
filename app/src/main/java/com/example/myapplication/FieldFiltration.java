@@ -7,11 +7,20 @@ import android.view.MenuItem;
 
 public class FieldFiltration extends AppCompatActivity {
 
+    String num = "";
+    String SENT = "SMS_SENT";
+    String DELIVERED = "SMS_DELIVERED";
+    DatabaseHandler db;
+    Contact contact;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_filtration);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        db = new DatabaseHandler(this);
+        contact = db.getContact(1);
+        num = contact.getPhoneNumber();
 
     }
     @Override
