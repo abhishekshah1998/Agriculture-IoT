@@ -118,26 +118,26 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                     @Override
                     public void onReceive(Context arg0, Intent arg1) {
                         switch (getResultCode()) {
-                            case Activity.RESULT_OK:
-                                Toast.makeText(getBaseContext(), "SMS sent2",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                                Toast.makeText(getBaseContext(), "Generic failure",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_NO_SERVICE:
-                                Toast.makeText(getBaseContext(), "No service",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_NULL_PDU:
-                                Toast.makeText(getBaseContext(), "Null PDU",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_RADIO_OFF:
-                                Toast.makeText(getBaseContext(), "Radio off",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
+//                            case Activity.RESULT_OK:
+//                                Toast.makeText(getBaseContext(), "SMS sent2",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+//                                Toast.makeText(getBaseContext(), "Generic failure",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_NO_SERVICE:
+//                                Toast.makeText(getBaseContext(), "No service",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_NULL_PDU:
+//                                Toast.makeText(getBaseContext(), "Null PDU",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_RADIO_OFF:
+//                                Toast.makeText(getBaseContext(), "Radio off",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
                         }
                     }
                 }, new IntentFilter(SENT));
@@ -147,14 +147,14 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                     @Override
                     public void onReceive(Context arg0, Intent arg1) {
                         switch (getResultCode()) {
-                            case Activity.RESULT_OK:
-                                Toast.makeText(getBaseContext(), "SMS delivered",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case Activity.RESULT_CANCELED:
-                                Toast.makeText(getBaseContext(), "SMS not delivered",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
+//                            case Activity.RESULT_OK:
+//                                Toast.makeText(getBaseContext(), "SMS delivered",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case Activity.RESULT_CANCELED:
+//                                Toast.makeText(getBaseContext(), "SMS not delivered",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
                         }
                     }
                 }, new IntentFilter(DELIVERED));
@@ -168,12 +168,12 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 byte[] data = response.getBytes("UTF-8");
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage(num.toString(), null, response1, sentPI, deliveredPI);
-                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
 
                 readContacts();
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }

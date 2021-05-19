@@ -47,7 +47,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     String valveOff;
     String soilDryness;
     String soilWetness;
-    String myMinute;
+    int myMinute;
 
     DatabaseHandler db;
     Contact contact;
@@ -120,7 +120,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         triggerFromSpinner.setAdapter(adapter1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button enable_field_irrigation = (Button)findViewById(R.id.enable_field_filtration);
+        Button enable_field_irrigation = (Button)findViewById(R.id.enable_field_irrigation);
+        Button disable_field_irrigation = (Button)findViewById(R.id.disable_field_irrigation);
         enable_field_irrigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +132,13 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 enable_field_irrigation_activity();
 
 
+            }
+        });
+        disable_field_irrigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
+                disable_field_irrigation_activity();
             }
         });
 
@@ -160,24 +168,24 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     public void onReceive(Context arg0, Intent arg1) {
                         switch (getResultCode()) {
                             case Activity.RESULT_OK:
-                                Toast.makeText(getBaseContext(), "SMS sent2",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "SMS sent2",
+//                                        Toast.LENGTH_SHORT).show();
                                 break;
                             case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                                Toast.makeText(getBaseContext(), "Generic failure",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "Generic failure",
+//                                        Toast.LENGTH_SHORT).show();
                                 break;
                             case SmsManager.RESULT_ERROR_NO_SERVICE:
-                                Toast.makeText(getBaseContext(), "No service",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "No service",
+//                                        Toast.LENGTH_SHORT).show();
                                 break;
                             case SmsManager.RESULT_ERROR_NULL_PDU:
-                                Toast.makeText(getBaseContext(), "Null PDU",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "Null PDU",
+//                                        Toast.LENGTH_SHORT).show();
                                 break;
                             case SmsManager.RESULT_ERROR_RADIO_OFF:
-                                Toast.makeText(getBaseContext(), "Radio off",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "Radio off",
+//                                        Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -189,12 +197,12 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     public void onReceive(Context arg0, Intent arg1) {
                         switch (getResultCode()) {
                             case Activity.RESULT_OK:
-                                Toast.makeText(getBaseContext(), "SMS delivered",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "SMS delivered",
+//                                        Toast.LENGTH_SHORT).show();
                                 break;
                             case Activity.RESULT_CANCELED:
-                                Toast.makeText(getBaseContext(), "SMS not delivered",
-                                        Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "SMS not delivered",
+//                                        Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -228,17 +236,102 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     return;
                 if (checkfields(Integer.toString(myHour)))
                     return;
-                if (checkfields(myMinute))
+                if (checkfields(Integer.toString(myMinute)))
                     return;
 
-                Intent intent = new Intent(this, PostGsmAuth.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, PostGsmAuth.class);
+//                startActivity(intent);
 
                 String response = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
-                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
+
+    private void disable_field_irrigation_activity() {
+
+
+
+
+//        Intent intent=new Intent(getApplicationContext(),GsmAuthenticationActivity.class);
+//        PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(
+                SENT), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
+                new Intent(DELIVERED), 0);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
+        }
+        else {
+            try {
+                // ---when the SMS has been sent---
+                registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context arg0, Intent arg1) {
+                        switch (getResultCode()) {
+//                            case Activity.RESULT_OK:
+//                                Toast.makeText(getBaseContext(), "SMS sent2",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+//                                Toast.makeText(getBaseContext(), "Generic failure",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_NO_SERVICE:
+//                                Toast.makeText(getBaseContext(), "No service",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_NULL_PDU:
+//                                Toast.makeText(getBaseContext(), "Null PDU",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_RADIO_OFF:
+//                                Toast.makeText(getBaseContext(), "Radio off",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+                        }
+                    }
+                }, new IntentFilter(SENT));
+
+                // ---when the SMS has been delivered---
+                registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context arg0, Intent arg1) {
+                        switch (getResultCode()) {
+//                            case Activity.RESULT_OK:
+//                                Toast.makeText(getBaseContext(), "SMS delivered",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case Activity.RESULT_CANCELED:
+//                                Toast.makeText(getBaseContext(), "SMS not delivered",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+                        }
+                    }
+                }, new IntentFilter(DELIVERED));
+
+                SmsManager sms = SmsManager.getDefault();
+//                String fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
+//                String priority = prioritySpinner.getSelectedItem().toString();
+//                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
+
+
+                String response1 = "HOLD"+fieldNumber;
+                byte[] data = response1.getBytes("UTF-8");
+                if (checkfields(fieldNumber))
+                    return;
+
+
+
+                String response = Base64.encodeToString(data, Base64.DEFAULT);
+                sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
+//                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+//                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         }
@@ -255,16 +348,13 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         myHour = hourOfDay;
-        myMinute1 = minute;
-        myMinute = String.format("%02d", myMinute1);
-        String am_or_pm = "AM";
+        myMinute = minute;
+        String am_or_pm = "am";
         if (myHour > 12) {
-            myHour1 = myHour - 12;
-            am_or_pm = "PM";
+            myHour = myHour - 12;
+            am_or_pm = "pm";
         }
-
-        onTimeEditText.setText(myHour1+':'+myMinute+" "+am_or_pm);
-
+        onTimeEditText.setText(Integer.toString(myHour)+':'+Integer.toString(myMinute)+" "+am_or_pm);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

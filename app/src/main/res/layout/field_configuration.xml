@@ -206,7 +206,7 @@ tools:context=".FieldConfiguration">
     </TableLayout>
 
     <Button
-        android:id="@+id/enable_field_filtration"
+        android:id="@+id/enable_field_irrigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -215,7 +215,7 @@ tools:context=".FieldConfiguration">
         android:text="Enable Field Irrigation Valve" />
 
     <Button
-        android:id="@+id/disable_field_fertigation"
+        android:id="@+id/disable_field_irrigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
