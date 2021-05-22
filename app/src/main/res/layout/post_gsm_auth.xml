@@ -7,7 +7,7 @@
     tools:context=".PostGsmAuth">
 
     <Button
-        android:id="@+id/connect_post_gsm_button"
+        android:id="@+id/set_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

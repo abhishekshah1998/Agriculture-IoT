@@ -7,25 +7,25 @@
     tools:context=".SettingsActivity">
 
     <Button
-        android:id="@+id/connect_post_gsm_button2"
+        android:id="@+id/get_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="136dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="Get System Time"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/reset_connection_post_gsm_auth_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contact_name_post_gsm_textView"
         app:layout_constraintVertical_bias="0.763" />
 
     <Button
-        android:id="@+id/connect_post_gsm_button"
+        android:id="@+id/set_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

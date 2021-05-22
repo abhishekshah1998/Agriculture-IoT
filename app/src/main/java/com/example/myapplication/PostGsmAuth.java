@@ -5,7 +5,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class PostGsmAuth extends AppCompatActivity {
 
@@ -35,7 +33,7 @@ public class PostGsmAuth extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_gsm_auth);
-        Button connectButton = (Button)findViewById(R.id.connect_post_gsm_button);
+        Button connectButton = (Button)findViewById(R.id.set_time);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +123,7 @@ public class PostGsmAuth extends AppCompatActivity {
                 String response = "HOOK";
                 byte[] data = response.getBytes("UTF-8");
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
-                sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
+                sms.sendTextMessage(num, null, response1, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
