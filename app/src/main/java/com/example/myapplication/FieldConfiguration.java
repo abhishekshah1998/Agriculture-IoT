@@ -48,6 +48,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     String soilDryness;
     String soilWetness;
     int myMinute;
+    String fieldNumber2dgitit;
+
 
     DatabaseHandler db;
     Contact contact;
@@ -217,8 +219,9 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 valveOff = valve_off.getText().toString();
                 soilDryness = soil_dryness.getText().toString();
                 soilWetness = soil_wetness.getText().toString();
+                fieldNumber2dgitit = String.format("%02d", fieldNumber);
 
-                String response1 = "SET"+fieldNumber+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from;
+                String response1 = "SET"+fieldNumber2dgitit+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from;
                 byte[] data = response1.getBytes("UTF-8");
                 if (checkfields(fieldNumber))
                     return;
@@ -319,8 +322,9 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
 //                String priority = prioritySpinner.getSelectedItem().toString();
 //                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
 
+                fieldNumber2dgitit = String.format("%02d", fieldNumber);
 
-                String response1 = "HOLD"+fieldNumber;
+                String response1 = "HOLD"+fieldNumber2dgitit;
                 byte[] data = response1.getBytes("UTF-8");
                 if (checkfields(fieldNumber))
                     return;

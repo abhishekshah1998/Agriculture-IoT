@@ -40,6 +40,7 @@ public class FieldFertigation extends AppCompatActivity {
     Contact contact;
     String name = "";
     String num = "";
+    String fieldNumber2dgitit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,8 +145,8 @@ public class FieldFertigation extends AppCompatActivity {
 //                String fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
 //                String priority = prioritySpinner.getSelectedItem().toString();
 //                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
-
-                String response = "HOLD"+fieldNumber;
+                fieldNumber2dgitit = String.format("%02d", fieldNumber);
+                String response = "DISABLE"+fieldNumber2dgitit;
                 byte[] data = response.getBytes("UTF-8");
 
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
@@ -232,8 +233,8 @@ public class FieldFertigation extends AppCompatActivity {
 //                String fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
 //                String priority = prioritySpinner.getSelectedItem().toString();
 //                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
-
-                String response = "ENABLE"+fieldNumber+" "+delay+" "+onTime+" "+iteration;
+                fieldNumber2dgitit = String.format("%02d", fieldNumber);
+                String response = "ENABLE"+fieldNumber2dgitit+" "+delay+" "+onTime+" "+iteration;
                 byte[] data = response.getBytes("UTF-8");
 
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
