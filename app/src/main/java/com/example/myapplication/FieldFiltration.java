@@ -231,7 +231,7 @@ public class FieldFiltration extends AppCompatActivity {
                 onTime = on_time.getText().toString();
                 seperation = separation.getText().toString();
 
-                String response1 = "ACTIVE"+delay1+" "+delay2+" "+delay3+" "+onTime+" "+seperation;
+                String response1 = "ACTIVE"+delay1+" "+delay2+" "+delay3+" "+onTime+" "+seperation+" ";
                 byte[] data = response1.getBytes("UTF-8");
                 if (checkfields(delay1))
                     return;

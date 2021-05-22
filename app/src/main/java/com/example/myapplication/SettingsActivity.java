@@ -19,6 +19,9 @@ import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.text.format.DateFormat;
+import android.widget.Toast;
+
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -123,11 +126,14 @@ public class SettingsActivity extends AppCompatActivity {
                 ;
 
                 Date currentTime = Calendar.getInstance().getTime();
-                String date = currentTime.toString();
-
-
-
-                String response1 = "FEED "+date;
+                String monthNumber  = (String) DateFormat.format("MM",   currentTime);
+//                String date = currentTime.toString();
+                String day = (String) DateFormat.format("dd",   currentTime);
+                String year = (String) DateFormat.format("yyyy", currentTime);
+                String hour = (String) DateFormat.format("k", currentTime);
+                String mins = (String) DateFormat.format("m", currentTime);
+                String secs = (String) DateFormat.format("s", currentTime);
+                String response1 = "FEED "+day+" "+monthNumber+" "+year+" "+hour+" "+mins+" "+secs;
                 byte[] data = response1.getBytes("UTF-8");
 
 

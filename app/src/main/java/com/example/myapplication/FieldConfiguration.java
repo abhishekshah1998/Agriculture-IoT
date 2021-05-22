@@ -220,8 +220,8 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 soilDryness = soil_dryness.getText().toString();
                 soilWetness = soil_wetness.getText().toString();
                 fieldNumber2dgitit = String.format("%02d", fieldNumber);
-
-                String response1 = "SET"+fieldNumber2dgitit+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from;
+                Toast.makeText(getApplicationContext(),Integer.toString(myHour)+": "+myMinute,Toast.LENGTH_LONG).show();
+                String response1 = "SET"+fieldNumber2dgitit+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from+" ";
                 byte[] data = response1.getBytes("UTF-8");
                 if (checkfields(fieldNumber))
                     return;
@@ -353,10 +353,10 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         myHour = hourOfDay;
         myMinute = minute;
-        String am_or_pm = "am";
+        String am_or_pm = "AM";
         if (myHour > 12) {
             myHour = myHour - 12;
-            am_or_pm = "pm";
+            am_or_pm = "PM";
         }
         onTimeEditText.setText(Integer.toString(myHour)+':'+Integer.toString(myMinute)+" "+am_or_pm);
     }

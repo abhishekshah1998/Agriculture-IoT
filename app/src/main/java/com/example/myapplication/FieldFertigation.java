@@ -234,7 +234,7 @@ public class FieldFertigation extends AppCompatActivity {
 //                String priority = prioritySpinner.getSelectedItem().toString();
 //                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
                 fieldNumber2dgitit = String.format("%02d", fieldNumber);
-                String response = "ENABLE"+fieldNumber2dgitit+" "+delay+" "+onTime+" "+iteration;
+                String response = "ENABLE"+fieldNumber2dgitit+" "+delay+" "+onTime+" "+iteration+" ";
                 byte[] data = response.getBytes("UTF-8");
 
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
