@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.format.DateFormat;
@@ -48,6 +49,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     String soilDryness;
     String soilWetness;
     int myMinute;
+    String myHour24str;
     String fieldNumber2dgitit;
 
 
@@ -127,6 +129,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
         enable_field_irrigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
                 priority = prioritySpinner.getSelectedItem().toString();
                 //trigger_from = triggerFromSpinner.getSelectedItem().toString();
@@ -219,9 +222,14 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 valveOff = valve_off.getText().toString();
                 soilDryness = soil_dryness.getText().toString();
                 soilWetness = soil_wetness.getText().toString();
-                fieldNumber2dgitit = String.format("%02d", fieldNumber);
-                Toast.makeText(getApplicationContext(),Integer.toString(myHour)+": "+myMinute,Toast.LENGTH_LONG).show();
-                String response1 = "SET"+fieldNumber2dgitit+" "+valveOn+" "+valveOff+" "+Integer.toString(myHour)+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from+" ";
+
+                int field = Integer.valueOf(fieldNumber);
+
+                fieldNumber2dgitit = String.format("%02d", field);
+                myHour24str = String.format("%02d", myHour);
+
+//                Toast.makeText(getApplicationContext(),Integer.toString(myHour)+": "+myMinute,Toast.LENGTH_LONG).show();
+                String response1 = "SET"+fieldNumber2dgitit+" "+valveOn+" "+valveOff+" "+myHour24str+" "+myMinute+" "+soilDryness+" "+soilWetness+" "+priority+" "+trigger_from+" ";
                 byte[] data = response1.getBytes("UTF-8");
                 if (checkfields(fieldNumber))
                     return;
@@ -241,7 +249,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     return;
                 if (checkfields(Integer.toString(myMinute)))
                     return;
-
+                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
 //                Intent intent = new Intent(this, PostGsmAuth.class);
 //                startActivity(intent);
 
@@ -249,6 +257,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
+
 //                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
             }
@@ -321,8 +330,9 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
 //                String fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
 //                String priority = prioritySpinner.getSelectedItem().toString();
 //                String trigger_from = triggerFromSpinner.getSelectedItem().toString();
+                int field = Integer.valueOf(fieldNumber);
 
-                fieldNumber2dgitit = String.format("%02d", fieldNumber);
+                fieldNumber2dgitit = String.format("%02d", field);
 
                 String response1 = "HOLD"+fieldNumber2dgitit;
                 byte[] data = response1.getBytes("UTF-8");
@@ -330,7 +340,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     return;
 
 
-
+                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
                 String response = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
@@ -343,7 +353,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
 
     private Boolean checkfields(String s){
 
-        if (s == null){
+        if (s == null || s.equalsIgnoreCase("") || s.equalsIgnoreCase(" ")){
             Toast.makeText(getApplicationContext(),"Fill all the fields", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -353,12 +363,14 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         myHour = hourOfDay;
         myMinute = minute;
+        int myHour12 = myHour;
         String am_or_pm = "AM";
         if (myHour > 12) {
-            myHour = myHour - 12;
+            myHour12 = myHour - 12;
             am_or_pm = "PM";
         }
-        onTimeEditText.setText(Integer.toString(myHour)+':'+Integer.toString(myMinute)+" "+am_or_pm);
+        String myHour12str = String.format("%02d", myHour12);
+        onTimeEditText.setText(myHour12str+':'+Integer.toString(myMinute)+" "+am_or_pm);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -246,7 +246,7 @@ public class FieldFiltration extends AppCompatActivity {
 
 //                Intent intent = new Intent(this, PostGsmAuth.class);
 //                startActivity(intent);
-
+                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
                 String response = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
