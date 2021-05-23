@@ -249,7 +249,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     return;
                 if (checkfields(Integer.toString(myMinute)))
                     return;
-                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
 //                Intent intent = new Intent(this, PostGsmAuth.class);
 //                startActivity(intent);
 
@@ -340,7 +340,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                     return;
 
 
-                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
                 String response = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();

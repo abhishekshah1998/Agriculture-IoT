@@ -150,7 +150,7 @@ public class FieldFertigation extends AppCompatActivity {
                 fieldNumber2dgitit = String.format("%02d", field);
                 String response = "DISABLE"+fieldNumber2dgitit;
                 byte[] data = response.getBytes("UTF-8");
-                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage(num, null, response1, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
@@ -241,7 +241,7 @@ public class FieldFertigation extends AppCompatActivity {
 
                 String response = "ENABLE"+fieldNumber2dgitit+" "+delay+" "+onTime+" "+iteration+" ";
                 byte[] data = response.getBytes("UTF-8");
-                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
                 sms.sendTextMessage(num, null, response1, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
