@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button gsmButton = (Button)findViewById(R.id.connect_post_gsm_button);
+        Button gsmButton = (Button)findViewById(R.id.set_time);
         gsmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

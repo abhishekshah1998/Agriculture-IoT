@@ -119,6 +119,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
         Uri message = Uri.parse("content://sms/inbox");
         ContentResolver cr = GsmAuthenticationActivity.this.getContentResolver();
 
+
         Cursor c = cr.query(message, null, null, null, null);
         GsmAuthenticationActivity.this.startManagingCursor(c);
         int totalSMS = c.getCount();
@@ -138,6 +139,24 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                 }
                 objSms = new Sms();
                 objSms.setId(c.getString(c.getColumnIndexOrThrow("_id")));
+
+       private void postGsmAuthActivity() {
+
+
+        if (name == ""){
+            Toast.makeText(getApplicationContext(),"Select Contact",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (oldpwdEdit.getText().toString().trim().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(),"Fill the old password field",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (newpwdEdit.getText().toString().trim().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(),"Fill the new password field",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent intent = new Intent(this, PostGsmAuth.class);
+        startActivity(intent);
 
 
                 objSms.setAddress(c.getString(c
@@ -189,26 +208,26 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                     @Override
                     public void onReceive(Context arg0, Intent arg1) {
                         switch (getResultCode()) {
-                            case Activity.RESULT_OK:
-                                Toast.makeText(getBaseContext(), "SMS sent2",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                                Toast.makeText(getBaseContext(), "Generic failure",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_NO_SERVICE:
-                                Toast.makeText(getBaseContext(), "No service",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_NULL_PDU:
-                                Toast.makeText(getBaseContext(), "Null PDU",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
-                            case SmsManager.RESULT_ERROR_RADIO_OFF:
-                                Toast.makeText(getBaseContext(), "Radio off",
-                                        Toast.LENGTH_SHORT).show();
-                                break;
+//                            case Activity.RESULT_OK:
+//                                Toast.makeText(getBaseContext(), "SMS sent2",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+//                                Toast.makeText(getBaseContext(), "Generic failure",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_NO_SERVICE:
+//                                Toast.makeText(getBaseContext(), "No service",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_NULL_PDU:
+//                                Toast.makeText(getBaseContext(), "Null PDU",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case SmsManager.RESULT_ERROR_RADIO_OFF:
+//                                Toast.makeText(getBaseContext(), "Radio off",
+//                                        Toast.LENGTH_SHORT).show();
+//                                break;
                         }
                     }
                 }, new IntentFilter(SENT));
@@ -227,6 +246,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "SMS not delivered",
                                         Toast.LENGTH_SHORT).show();
                                 break;
+
                         }
                     }
                 }, new IntentFilter(DELIVERED));
@@ -236,13 +256,16 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                 String response = "AU " + oldpwd + " " + newpwd;
                 Log.d("Insert: ", "Inserting ..");
                 db.addContact(new Contact(name, num.toString()));
-                sms.sendTextMessage(num.toString(), null, response, sentPI, deliveredPI);
-                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+
+                byte[] data = response.getBytes("UTF-8");
+                String response1 = Base64.encodeToString(data, Base64.DEFAULT);
+                sms.sendTextMessage(num.toString(), null, response1, sentPI, deliveredPI);
+//                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
 
                 readContacts();
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -283,7 +306,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                             while (numbers.moveToNext()) {
                                 num = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 name = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                                contactButton.setText(name + "-" + num);
+                                contactButton.setText(name + " - " + num);
                             }
 
                         }

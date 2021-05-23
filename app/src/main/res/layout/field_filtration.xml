@@ -47,7 +47,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/valve_on_period_configuration_edit_text"
+                android:id="@+id/delay_1"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:inputType="number" />
@@ -72,7 +72,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/valve_off_period_configuration_edit_text"
+                android:id="@+id/delay_2"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -98,7 +98,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/delay_3"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -124,7 +124,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/on_time"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -151,12 +151,13 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/on_time_configuration_edit_text"
+                android:id="@+id/separation"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:editable="false"
-                android:ems="10" />
+                android:ems="10"
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/textView9"
@@ -169,7 +170,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enable_field_filtration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -178,7 +179,7 @@
         android:text="Enable Filtration" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/disable_field_filtration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
