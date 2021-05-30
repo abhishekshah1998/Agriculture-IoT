@@ -86,10 +86,10 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
     private void readMessage() {
         try {
             //Method 1
-            Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
-            cursor.moveToFirst();
-            Log.d("READ", cursor.getString(12));
-            cursor.close();
+//            Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
+//            cursor.moveToFirst();
+//            Log.d("READ", cursor.getString(12));
+//            cursor.close();
 
             //Method 2
 
@@ -284,7 +284,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
         Cursor c = cr.query(message, null, null, null, null);
 //        GsmAuthenticationActivity.this.startManagingCursor(c);
         int totalSMS = c.getCount();
-
+        Log.d("Total msg", String.valueOf(totalSMS));
         //Get only first 5 Messages
         if (totalSMS > 5) {
             totalSMS = 5;
