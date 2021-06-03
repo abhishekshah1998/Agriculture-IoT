@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -31,6 +32,42 @@ public class SettingsActivity extends AppCompatActivity {
     String DELIVERED = "SMS_DELIVERED";
     DatabaseHandler db;
     Contact contact;
+
+    private BroadcastReceiver actionConversation = new BroadcastReceiver(){
+
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+//                                Toast.makeText(getBaseContext(), "SMS delivered",
+//                                        Toast.LENGTH_SHORT).show();
+                    break;
+                case Activity.RESULT_CANCELED:
+//                                Toast.makeText(getBaseContext(), "SMS not delivered",
+//                                        Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            getApplicationContext().unregisterReceiver(this);
+        }
+    };
+
+    private void registerBroadCasts() {
+        IntentFilter intentConnection = new IntentFilter(DELIVERED);
+        getApplicationContext().registerReceiver(actionConversation, intentConnection);
+    }
+
+    @Override
+    public void onDestroy() {
+
+        try{
+            if(actionConversation!=null)
+                unregisterReceiver(actionConversation);
+
+        }catch(Exception ignored){}
+
+        super.onDestroy();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +100,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+
+        registerBroadCasts();
+
     }
 
     private void set_time() {
@@ -77,50 +117,50 @@ public class SettingsActivity extends AppCompatActivity {
         else {
             try {
                 // ---when the SMS has been sent---
-                registerReceiver(new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context arg0, Intent arg1) {
-                        switch (getResultCode()) {
-//                            case Activity.RESULT_OK:
-//                                Toast.makeText(getBaseContext(), "SMS sent2",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-//                                Toast.makeText(getBaseContext(), "Generic failure",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_NO_SERVICE:
-//                                Toast.makeText(getBaseContext(), "No service",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_NULL_PDU:
-//                                Toast.makeText(getBaseContext(), "Null PDU",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_RADIO_OFF:
-//                                Toast.makeText(getBaseContext(), "Radio off",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-                        }
-                    }
-                }, new IntentFilter(SENT));
-
-                // ---when the SMS has been delivered---
-                registerReceiver(new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context arg0, Intent arg1) {
-                        switch (getResultCode()) {
-//                            case Activity.RESULT_OK:
-//                                Toast.makeText(getBaseContext(), "SMS delivered",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case Activity.RESULT_CANCELED:
-//                                Toast.makeText(getBaseContext(), "SMS not delivered",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-                        }
-                    }
-                }, new IntentFilter(DELIVERED));
+//                registerReceiver(new BroadcastReceiver() {
+//                    @Override
+//                    public void onReceive(Context arg0, Intent arg1) {
+//                        switch (getResultCode()) {
+////                            case Activity.RESULT_OK:
+////                                Toast.makeText(getBaseContext(), "SMS sent2",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+////                                Toast.makeText(getBaseContext(), "Generic failure",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_NO_SERVICE:
+////                                Toast.makeText(getBaseContext(), "No service",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_NULL_PDU:
+////                                Toast.makeText(getBaseContext(), "Null PDU",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_RADIO_OFF:
+////                                Toast.makeText(getBaseContext(), "Radio off",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+//                        }
+//                    }
+//                }, new IntentFilter(SENT));
+//
+//                // ---when the SMS has been delivered---
+//                registerReceiver(new BroadcastReceiver() {
+//                    @Override
+//                    public void onReceive(Context arg0, Intent arg1) {
+//                        switch (getResultCode()) {
+////                            case Activity.RESULT_OK:
+////                                Toast.makeText(getBaseContext(), "SMS delivered",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case Activity.RESULT_CANCELED:
+////                                Toast.makeText(getBaseContext(), "SMS not delivered",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+//                        }
+//                    }
+//                }, new IntentFilter(DELIVERED));
 
                 SmsManager sms = SmsManager.getDefault();
                 ;

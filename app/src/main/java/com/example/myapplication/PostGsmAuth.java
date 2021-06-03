@@ -5,19 +5,28 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.SmsManager;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostGsmAuth extends AppCompatActivity {
 
@@ -28,7 +37,44 @@ public class PostGsmAuth extends AppCompatActivity {
     Button connectButton;
     String SENT = "SMS_SENT";
     String DELIVERED = "SMS_DELIVERED";
+    TextView status_post_gsm_authentication_view;
 
+    private BroadcastReceiver actionConversation = new BroadcastReceiver(){
+
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+//                                Toast.makeText(getBaseContext(), "SMS delivered",
+//                                        Toast.LENGTH_SHORT).show();
+                    readMessage();
+
+                    break;
+                case Activity.RESULT_CANCELED:
+//                                Toast.makeText(getBaseContext(), "SMS not delivered",
+//                                        Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            getApplicationContext().unregisterReceiver(this);
+        }
+    };
+
+    private void registerBroadCasts() {
+        IntentFilter intentConnection = new IntentFilter(DELIVERED);
+        getApplicationContext().registerReceiver(actionConversation, intentConnection);
+    }
+
+    @Override
+    public void onDestroy() {
+
+        try{
+            if(actionConversation!=null)
+                unregisterReceiver(actionConversation);
+
+        }catch(Exception e){}
+
+        super.onDestroy();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +84,6 @@ public class PostGsmAuth extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendmessage();
-                menuActivity();
             }
         });
         TextView contactNameTextView = (TextView) findViewById(R.id.contact_name_post_gsm_textView);
@@ -46,6 +91,7 @@ public class PostGsmAuth extends AppCompatActivity {
         Bundle b = intent.getExtras();
         db = new DatabaseHandler(this);
 
+        status_post_gsm_authentication_view = (TextView) findViewById(R.id.status_post_gsm);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -55,7 +101,97 @@ public class PostGsmAuth extends AppCompatActivity {
         contactNameTextView.setText(name + " - " + num );
 
 //        Toast.makeText(getApplicationContext(),contact.getPhoneNumber(),Toast.LENGTH_LONG).show();
+        registerBroadCasts();
+    }
 
+
+    private void readMessage() {
+        //Method 1
+        Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
+        cursor.moveToFirst();
+        Log.d("READ", cursor.getString(12));
+        cursor.close();
+
+//        status_gsm_authentication_view.setText(cursor.getString(12));
+
+        //Method 2
+        List<Sms> sms_list = getAllSms();
+        final String status = sms_list.get(0).getMsg();
+        Log.d("SMS_LIST", sms_list.get(0).getMsg());
+        status_post_gsm_authentication_view.setText(status);
+
+        //Launch next Activity here after 5 sec
+        int TIME_OUT = 4000;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(PostGsmAuth.this, PostGsmAuth.class);
+                intent.putExtra("name", name);
+                intent.putExtra("num", num);
+                Log.d("Equals ignore", String.valueOf(status.equalsIgnoreCase("Hooked")));
+                Log.d("Status",status);
+//                if(status.equals("Hooked"))
+                menuActivity();
+//                else
+//                    Log.d("IF ELSE","not true");
+            }
+        }, TIME_OUT);
+
+
+    }
+
+    private List<Sms> getAllSms() {
+        List<Sms> lstSms = new ArrayList<Sms>();
+        Sms objSms = new Sms();
+        Uri message = Uri.parse("content://sms/inbox");
+        ContentResolver cr = PostGsmAuth.this.getContentResolver();
+
+        Cursor c = cr.query(message, null, null, null, null);
+        PostGsmAuth.this.startManagingCursor(c);
+        int totalSMS = c.getCount();
+
+        //Get only first 5 Messages
+        // Reduce it to 5 afterwords
+        if (totalSMS > 15) {
+            totalSMS = 15;
+        }
+        if (c.moveToFirst()) {
+            for (int i = 0; i < totalSMS; i++) {
+
+                //Get only those messages where the sender is server
+                String messageAddress = c.getString(c.getColumnIndexOrThrow("address"));
+                Log.d("messageAddress", messageAddress);
+                if (!messageAddress.equals("+919860540789")) {
+                    continue;
+                }
+                objSms = new Sms();
+                objSms.setId(c.getString(c.getColumnIndexOrThrow("_id")));
+
+
+                objSms.setAddress(c.getString(c
+                        .getColumnIndexOrThrow("address")));
+                objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
+                objSms.setReadState(c.getString(c.getColumnIndex("read")));
+                objSms.setTime(c.getString(c.getColumnIndexOrThrow("date")));
+
+//                objSms.setTime((long) c.getColumnIndexOrThrow("date"), "hh:mm a MMM dd, yyyy");
+                if (c.getString(c.getColumnIndexOrThrow("type")).contains("1")) {
+                    objSms.setFolderName("inbox");
+                } else {
+                    objSms.setFolderName("sent");
+                }
+
+                lstSms.add(objSms);
+                c.moveToNext();
+            }
+        }
+        // else {
+        // throw new RuntimeException("You have no SMS");
+        // }
+        c.close();
+
+        return lstSms;
     }
 
     private void sendmessage() {
@@ -69,50 +205,50 @@ public class PostGsmAuth extends AppCompatActivity {
         else {
             try {
                 // ---when the SMS has been sent---
-                registerReceiver(new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context arg0, Intent arg1) {
-                        switch (getResultCode()) {
-//                            case Activity.RESULT_OK:
-//                                Toast.makeText(getBaseContext(), "SMS sent2",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-//                                Toast.makeText(getBaseContext(), "Generic failure",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_NO_SERVICE:
-//                                Toast.makeText(getBaseContext(), "No service",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_NULL_PDU:
-//                                Toast.makeText(getBaseContext(), "Null PDU",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case SmsManager.RESULT_ERROR_RADIO_OFF:
-//                                Toast.makeText(getBaseContext(), "Radio off",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-                        }
-                    }
-                }, new IntentFilter(SENT));
+//                registerReceiver(new BroadcastReceiver() {
+//                    @Override
+//                    public void onReceive(Context arg0, Intent arg1) {
+//                        switch (getResultCode()) {
+////                            case Activity.RESULT_OK:
+////                                Toast.makeText(getBaseContext(), "SMS sent2",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+////                                Toast.makeText(getBaseContext(), "Generic failure",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_NO_SERVICE:
+////                                Toast.makeText(getBaseContext(), "No service",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_NULL_PDU:
+////                                Toast.makeText(getBaseContext(), "Null PDU",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case SmsManager.RESULT_ERROR_RADIO_OFF:
+////                                Toast.makeText(getBaseContext(), "Radio off",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+//                        }
+//                    }
+//                }, new IntentFilter(SENT));
 
                 // ---when the SMS has been delivered---
-                registerReceiver(new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context arg0, Intent arg1) {
-                        switch (getResultCode()) {
-//                            case Activity.RESULT_OK:
-//                                Toast.makeText(getBaseContext(), "SMS delivered",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case Activity.RESULT_CANCELED:
-//                                Toast.makeText(getBaseContext(), "SMS not delivered",
-//                                        Toast.LENGTH_SHORT).show();
-//                                break;
-                        }
-                    }
-                }, new IntentFilter(DELIVERED));
+//                registerReceiver(new BroadcastReceiver() {
+//                    @Override
+//                    public void onReceive(Context arg0, Intent arg1) {
+//                        switch (getResultCode()) {
+////                            case Activity.RESULT_OK:
+////                                Toast.makeText(getBaseContext(), "SMS delivered",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+////                            case Activity.RESULT_CANCELED:
+////                                Toast.makeText(getBaseContext(), "SMS not delivered",
+////                                        Toast.LENGTH_SHORT).show();
+////                                break;
+//                        }
+//                    }
+//                }, new IntentFilter(DELIVERED));
 
                 SmsManager sms = SmsManager.getDefault();
 //                String fieldNumber = fieldNumberSpinner.getSelectedItem().toString();
