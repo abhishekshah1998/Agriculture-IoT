@@ -117,8 +117,8 @@ public class PostGsmAuth extends AppCompatActivity {
 
             // *Careful*  - It will crash the app if sms_list is empty
             List<Sms> sms_list = getAllSms();
-            final String status = sms_list.get(1).getMsg();
-            Log.d("SMS_LIST", sms_list.get(1).getMsg());
+            final String status = sms_list.get(4).getMsg();
+            Log.d("SMS_LIST", sms_list.get(4).getMsg());
             status_post_gsm_authentication_view.setText(status);
 
             //Launch next Activity here after 5 sec

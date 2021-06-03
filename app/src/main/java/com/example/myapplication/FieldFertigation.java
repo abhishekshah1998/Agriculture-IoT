@@ -139,8 +139,8 @@ public class FieldFertigation extends AppCompatActivity {
 
             // *Careful*  - It will crash the app if sms_list is empty
             List<Sms> sms_list = getAllSms();
-            final String status = sms_list.get(0).getMsg();
-            Log.d("SMS_LIST", sms_list.get(0).getMsg());
+            final String status = sms_list.get(2).getMsg();
+            Log.d("SMS_LIST", sms_list.get(2).getMsg());
             status_field_fertigation_view.setText(status);
 
             //Launch next Activity here after 5 sec
