@@ -119,39 +119,40 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
 
         super.onDestroy();
     }
+
+
     private void readMessage() {
-        //Method 1
-        Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
-        cursor.moveToFirst();
-        Log.d("READ", cursor.getString(12));
-        cursor.close();
+        try {
+            //Method 1
+//            Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
+//            cursor.moveToFirst();
+//            Log.d("READ", cursor.getString(12));
+//            cursor.close();
 
-//        status_gsm_authentication_view.setText(cursor.getString(12));
+            //Method 2
 
-        //Method 2
-        List<Sms> sms_list = getAllSms();
-        final String status = sms_list.get(1).getMsg();
-        Log.d("SMS_LIST", sms_list.get(1).getMsg());
-        status_gsm_authentication_view.setText(status);
+            // *Careful*  - It will crash the app if sms_list is empty
+            List<Sms> sms_list = getAllSms();
+            final String status = sms_list.get(2).getMsg();
+            Log.d("SMS_LIST", sms_list.get(2).getMsg());
+            status_gsm_authentication_view.setText(status);
 
-        //Launch next Activity here after 5 sec
-        int TIME_OUT = 4000;
+            //Launch next Activity here after 5 sec
+            int TIME_OUT = 4000;
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(GsmAuthenticationActivity.this, PostGsmAuth.class);
-                intent.putExtra("name", name);
-                intent.putExtra("num", num);
-                Log.d("Equals ignore", String.valueOf(status.equalsIgnoreCase("Admin set successfully")));
-                Log.d("Status",status);
-//                if(status.equals("Admin set successfully"))
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(GsmAuthenticationActivity.this, PostGsmAuth.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("num", num);
+//                    if (status.equals("Admin Set Successfully"))
                     startActivity(intent);
-//                else
-//                    Log.d("IF ELSE","not true");
-            }
-        }, TIME_OUT);
-
+                }
+            }, TIME_OUT);
+        }catch (Exception e){
+            Log.d("MSG","Inside Readmsg()");
+        }
 
     }
 
@@ -162,11 +163,12 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
         ContentResolver cr = GsmAuthenticationActivity.this.getContentResolver();
 
         Cursor c = cr.query(message, null, null, null, null);
-        GsmAuthenticationActivity.this.startManagingCursor(c);
+//        GsmAuthenticationActivity.this.startManagingCursor(c);
         int totalSMS = c.getCount();
+        Log.d("Total msg", String.valueOf(totalSMS));
 
         //Get only first 5 Messages
-        // Reduce it to 5 afterwords
+        //Change it to 5
         if (totalSMS > 15) {
             totalSMS = 15;
         }
