@@ -271,7 +271,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String hour = (String) DateFormat.format("k", currentTime);
                 String mins = (String) DateFormat.format("m", currentTime);
                 String secs = (String) DateFormat.format("s", currentTime);
-                String response1 = "FEED "+day+" "+monthNumber+" "+year+" "+hour+" "+mins+" "+secs;
+                String response1 = "FEED "+day+" "+monthNumber+" "+year.substring(2,4)+" "+hour+" "+mins+" "+secs;
                 byte[] data = response1.getBytes("UTF-8");
 
 
