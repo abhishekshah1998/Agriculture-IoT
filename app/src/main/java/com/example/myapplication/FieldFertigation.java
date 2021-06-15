@@ -184,7 +184,13 @@ public class FieldFertigation extends AppCompatActivity {
                 //Get only those messages where the sender is server
                 String messageAddress = c.getString(c.getColumnIndexOrThrow("address"));
                 Log.d("messageAddress", messageAddress);
-                if (!messageAddress.equals("+919860540789")) {
+                String number = "";
+                if(num.startsWith("+91"))
+                    number=num;
+                else
+                    number="+91"+num;
+                if (!messageAddress.equals(number)) {
+                    c.moveToNext();
                     continue;
                 }
                 objSms = new Sms();

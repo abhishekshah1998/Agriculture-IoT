@@ -145,6 +145,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 public void run() {
                     Intent intent = new Intent(GsmAuthenticationActivity.this, PostGsmAuth.class);
                     intent.putExtra("name", name);
+                    Log.d("Number",num);
                     intent.putExtra("num", num);
 //                    if (status.equals("Admin Set Successfully"))
                     startActivity(intent);
@@ -178,9 +179,20 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 //Get only those messages where the sender is server
                 String messageAddress = c.getString(c.getColumnIndexOrThrow("address"));
                 Log.d("messageAddress", messageAddress);
-                if (!messageAddress.equals("+919860540789")) {
+                Log.d("Number is :",num);
+                Log.d("Message : ",c.getString(c.getColumnIndexOrThrow("body")));
+
+                String number = "";
+                if(num.startsWith("+91"))
+                    number=num;
+                else
+                    number="+91"+num;
+                if (!messageAddress.equals(number)) {
+                    c.moveToNext();
                     continue;
                 }
+                Log.d("messageAddress 1", messageAddress);
+                Log.d("Number is 1 :",num);
                 objSms = new Sms();
                 objSms.setId(c.getString(c.getColumnIndexOrThrow("_id")));
 

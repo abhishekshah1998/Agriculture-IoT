@@ -47,7 +47,9 @@ public class PostGsmAuth extends AppCompatActivity {
                 case Activity.RESULT_OK:
 //                                Toast.makeText(getBaseContext(), "SMS delivered",
 //                                        Toast.LENGTH_SHORT).show();
+                    Log.d("Before Read","Before read");
                     readMessage();
+                    Log.d("After Read","After read");
 
                     break;
                 case Activity.RESULT_CANCELED:
@@ -116,6 +118,7 @@ public class PostGsmAuth extends AppCompatActivity {
             //Method 2
 
             // *Careful*  - It will crash the app if sms_list is empty
+            Log.d("inside Read","inside read");
             List<Sms> sms_list = getAllSms();
             final String status = sms_list.get(4).getMsg();
             Log.d("SMS_LIST", sms_list.get(4).getMsg());
@@ -162,7 +165,13 @@ public class PostGsmAuth extends AppCompatActivity {
                 //Get only those messages where the sender is server
                 String messageAddress = c.getString(c.getColumnIndexOrThrow("address"));
                 Log.d("messageAddress", messageAddress);
-                if (!messageAddress.equals("+919860540789")) {
+                String number = "";
+                if(num.startsWith("+91"))
+                    number=num;
+                else
+                    number="+91"+num;
+                if (!messageAddress.equals(number)) {
+                    c.moveToNext();
                     continue;
                 }
                 objSms = new Sms();
