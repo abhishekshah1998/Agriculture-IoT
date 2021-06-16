@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PostGsmAuth extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class PostGsmAuth extends AppCompatActivity {
     String DELIVERED = "SMS_DELIVERED";
     TextView status_post_gsm_authentication_view;
 
-    private BroadcastReceiver actionConversation = new BroadcastReceiver(){
+    private BroadcastReceiver actionConversation = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context arg0, Intent arg1) {
@@ -47,9 +48,9 @@ public class PostGsmAuth extends AppCompatActivity {
                 case Activity.RESULT_OK:
 //                                Toast.makeText(getBaseContext(), "SMS delivered",
 //                                        Toast.LENGTH_SHORT).show();
-                    Log.d("Before Read","Before read");
+                    Log.d("Before Read in postfsm", "Before read");
                     readMessage();
-                    Log.d("After Read","After read");
+                    Log.d("After Read in postgsm", "After read");
 
                     break;
                 case Activity.RESULT_CANCELED:
@@ -69,19 +70,21 @@ public class PostGsmAuth extends AppCompatActivity {
     @Override
     public void onDestroy() {
 
-        try{
-            if(actionConversation!=null)
+        try {
+            if (actionConversation != null)
                 unregisterReceiver(actionConversation);
 
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
 
         super.onDestroy();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_gsm_auth);
-        Button connectButton = (Button)findViewById(R.id.set_time);
+        Button connectButton = (Button) findViewById(R.id.set_time);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +103,7 @@ public class PostGsmAuth extends AppCompatActivity {
         contact = db.getContact(1);
         num = contact.getPhoneNumber();
         name = contact.getName();
-        contactNameTextView.setText(name + " - " + num );
+        contactNameTextView.setText(name + " - " + num);
 
 //        Toast.makeText(getApplicationContext(),contact.getPhoneNumber(),Toast.LENGTH_LONG).show();
         registerBroadCasts();
@@ -109,19 +112,27 @@ public class PostGsmAuth extends AppCompatActivity {
 
     private void readMessage() {
         try {
-            //Method 1
-//            Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
-//            cursor.moveToFirst();
-//            Log.d("READ", cursor.getString(12));
-//            cursor.close();
-
-            //Method 2
-
-            // *Careful*  - It will crash the app if sms_list is empty
-            Log.d("inside Read","inside read");
-            List<Sms> sms_list = getAllSms();
-            final String status = sms_list.get(4).getMsg();
-            Log.d("SMS_LIST", sms_list.get(4).getMsg());
+            //TimeBuffer of 10 sec
+            int TIME_BUFFER = 5000;
+            List<Sms> sms_list;
+            //Using Threads
+            while (true) {
+                try {
+                    sms_list = getAllSms();
+                    Log.d("LIST SIZE", String.valueOf(sms_list.size()));
+                    if (sms_list.size() != 0) {
+                        String message = sms_list.get(0).getMsg();
+                        if (message.equals("Hooked"))
+                            break;
+                    }
+                    Thread.sleep(TIME_BUFFER);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d("inside Read", "inside read");
+            final String status = sms_list.get(0).getMsg();
+            Log.d("SMS_LIST", sms_list.get(0).getMsg());
             status_post_gsm_authentication_view.setText(status);
 
             //Launch next Activity here after 5 sec
@@ -130,15 +141,11 @@ public class PostGsmAuth extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    Intent intent = new Intent(PostGsmAuth.this, PostGsmAuth.class);
-//                    intent.putExtra("name", name);
-//                    intent.putExtra("num", num);
-//                    if (status.equals("Hooked"))
-                    menuActivity();
+                        menuActivity();
                 }
             }, TIME_OUT);
-        }catch (Exception e){
-            Log.d("MSG","Inside Readmsg()");
+        } catch (Exception e) {
+            Log.d("Error", "Error in post Gsm: " + Arrays.toString(e.getStackTrace()));
         }
 
     }
@@ -159,6 +166,7 @@ public class PostGsmAuth extends AppCompatActivity {
         if (totalSMS > 15) {
             totalSMS = 15;
         }
+        totalSMS = 1;;
         if (c.moveToFirst()) {
             for (int i = 0; i < totalSMS; i++) {
 
@@ -166,10 +174,10 @@ public class PostGsmAuth extends AppCompatActivity {
                 String messageAddress = c.getString(c.getColumnIndexOrThrow("address"));
                 Log.d("messageAddress", messageAddress);
                 String number = "";
-                if(num.startsWith("+91"))
-                    number=num;
+                if (num.startsWith("+91"))
+                    number = num;
                 else
-                    number="+91"+num;
+                    number = "+91" + num;
                 if (!messageAddress.equals(number)) {
                     c.moveToNext();
                     continue;
@@ -210,8 +218,7 @@ public class PostGsmAuth extends AppCompatActivity {
                 new Intent(DELIVERED), 0);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
-        }
-        else {
+        } else {
             try {
                 // ---when the SMS has been sent---
 //                registerReceiver(new BroadcastReceiver() {
@@ -282,6 +289,7 @@ public class PostGsmAuth extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

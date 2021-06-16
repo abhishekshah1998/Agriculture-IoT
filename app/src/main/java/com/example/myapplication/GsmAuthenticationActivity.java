@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,19 +8,16 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.os.Handler;
-import android.provider.SyncStateContract;
 import android.util.Base64;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.SmsManager;
@@ -36,20 +32,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GsmAuthenticationActivity extends AppCompatActivity{
+public class GsmAuthenticationActivity extends AppCompatActivity {
 
-    private final int REQUEST_CODE=99;
+    private final int REQUEST_CODE = 99;
     Button contactButton;
     String num = "";
     String name = "";
     String SENT = "SMS_SENT";
     String DELIVERED = "SMS_DELIVERED";
     String oldpwd, newpwd;
-    EditText oldpwdEdit,newpwdEdit;
+    EditText oldpwdEdit, newpwdEdit;
     DatabaseHandler db;
     TextView status_gsm_authentication_view;
+    final Handler mHandler = new Handler();
 
-    private BroadcastReceiver actionConversation = new BroadcastReceiver(){
+    private BroadcastReceiver actionConversation = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context arg0, Intent arg1) {
@@ -58,6 +55,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
 //                                Toast.makeText(getBaseContext(), "SMS delivered",
 //                                        Toast.LENGTH_SHORT).show();
                     readMessage();
+//                    readMessageAutomatic();
                     break;
                 case Activity.RESULT_CANCELED:
 //                                Toast.makeText(getBaseContext(), "SMS not delivered",
@@ -72,20 +70,21 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
         IntentFilter intentConnection = new IntentFilter(DELIVERED);
         getApplicationContext().registerReceiver(actionConversation, intentConnection);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gsm_authentication);
         db = new DatabaseHandler(this);
 
-        contactButton = (Button)findViewById(R.id.contact_gsm_authentication_button);
+        contactButton = (Button) findViewById(R.id.contact_gsm_authentication_button);
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getContactListActivity();
             }
         });
-        Button setConfigurationButton = (Button)findViewById(R.id.set_gsm_authentication_button);
+        Button setConfigurationButton = (Button) findViewById(R.id.set_gsm_authentication_button);
         setConfigurationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,9 +95,9 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
         }
-        oldpwdEdit = (EditText)findViewById(R.id.old_pwd_gsm_auth_input_text);
+        oldpwdEdit = (EditText) findViewById(R.id.old_pwd_gsm_auth_input_text);
 
-        newpwdEdit = (EditText)findViewById(R.id.new_pwd_gsm_auth_input_text);
+        newpwdEdit = (EditText) findViewById(R.id.new_pwd_gsm_auth_input_text);
         status_gsm_authentication_view = (TextView) findViewById(R.id.status_gsm_authentication);
 
 
@@ -108,14 +107,16 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
         registerBroadCasts();
 
     }
+
     @Override
     public void onDestroy() {
 
-        try{
-            if(actionConversation!=null)
+        try {
+            if (actionConversation != null)
                 unregisterReceiver(actionConversation);
 
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
 
         super.onDestroy();
     }
@@ -130,29 +131,80 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
 //            cursor.close();
 
             //Method 2
-
             // *Careful*  - It will crash the app if sms_list is empty
-            List<Sms> sms_list = getAllSms();
-            final String status = sms_list.get(5).getMsg();
-            Log.d("SMS_LIST", sms_list.get(5).getMsg());
-            status_gsm_authentication_view.setText(status);
+
+            //TimeBuffer of 10 sec
+            int TIME_BUFFER = 5000;
+
+            while (true) {
+                List<Sms> sms_list;
+                sms_list = getAllSms();
+                Log.d("LIST SIZE", String.valueOf(sms_list.size()));
+                if (sms_list.size() != 0) {
+                    Log.d("status message", sms_list.get(0).getMsg());
+                    String message = sms_list.get(0).getMsg();
+                    if (message.equals("Admin Set Successfully")) {
+                        final String status = sms_list.get(0).getMsg();
+                        status_gsm_authentication_view.setText(status);
+                        break;
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    }, TIME_BUFFER);
+                } else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    }, TIME_BUFFER);
+                    Log.d("size of list is :", String.valueOf(sms_list.size()));
+                }
+            }
+
+
+            //TimeBuffer of 10 sec
+//            int TIME_BUFFER = 5000;
+//            List<Sms> sms_list;
+////            //Using Threads
+//            while (true) {
+//                try {
+//                    sms_list = getAllSms();
+//                    Log.d("LIST SIZE", String.valueOf(sms_list.size()));
+//                    if (sms_list.size() != 0) {
+//                        String message = sms_list.get(0).getMsg();
+//                        if (message.equals("Admin Set Successfully"))
+//                            break;
+//                    }
+//                    Thread.sleep(TIME_BUFFER);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+            //Launch New Activity Here
+//                final String status = sms_list.get(0).getMsg();
+//                Log.d("SMS_LIST", sms_list.get(0).getMsg());
+//            status_gsm_authentication_view.setText(status);
 
             //Launch next Activity here after 5 sec
-            int TIME_OUT = 4000;
+            int TIME_OUT = 2000;
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Intent intent = new Intent(GsmAuthenticationActivity.this, PostGsmAuth.class);
                     intent.putExtra("name", name);
-                    Log.d("Number",num);
+                    Log.d("Number", num);
                     intent.putExtra("num", num);
-//                    if (status.equals("Admin Set Successfully"))
                     startActivity(intent);
                 }
             }, TIME_OUT);
-        }catch (Exception e){
-            Log.d("MSG","Inside Readmsg()");
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
         }
 
     }
@@ -173,26 +225,30 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
         if (totalSMS > 15) {
             totalSMS = 15;
         }
+
+        //Get only top message
+        totalSMS = 1;
+
         if (c.moveToFirst()) {
             for (int i = 0; i < totalSMS; i++) {
 
                 //Get only those messages where the sender is server
                 String messageAddress = c.getString(c.getColumnIndexOrThrow("address"));
                 Log.d("messageAddress", messageAddress);
-                Log.d("Number is :",num);
-                Log.d("Message : ",c.getString(c.getColumnIndexOrThrow("body")));
+                Log.d("Number is :", num);
+                Log.d("Message : ", c.getString(c.getColumnIndexOrThrow("body")));
 
                 String number = "";
-                if(num.startsWith("+91"))
-                    number=num;
+                if (num.startsWith("+91"))
+                    number = num;
                 else
-                    number="+91"+num;
+                    number = "+91" + num;
                 if (!messageAddress.equals(number)) {
                     c.moveToNext();
                     continue;
                 }
                 Log.d("messageAddress 1", messageAddress);
-                Log.d("Number is 1 :",num);
+                Log.d("Number is 1 :", num);
                 objSms = new Sms();
                 objSms.setId(c.getString(c.getColumnIndexOrThrow("_id")));
 
@@ -222,26 +278,34 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
         return lstSms;
     }
 
+    private void readMessageAutomatic() {
+//        while (true) {
+        new SmsReceiver().setEditText_otp(status_gsm_authentication_view);
+        Intent intent = new Intent(GsmAuthenticationActivity.this, PostGsmAuth.class);
+        intent.putExtra("name", name);
+        Log.d("Number", num);
+        intent.putExtra("num", num);
+        startActivity(intent);
+//        }
+    }
 
     private void postGsmAuthActivity() {
 
 
-        if (name == ""){
-            Toast.makeText(getApplicationContext(),"Select Contact",Toast.LENGTH_LONG).show();
+        if (name == "") {
+            Toast.makeText(getApplicationContext(), "Select Contact", Toast.LENGTH_LONG).show();
             return;
         }
-        if (oldpwdEdit.getText().toString().trim().equalsIgnoreCase("")){
-            Toast.makeText(getApplicationContext(),"Fill the old password field",Toast.LENGTH_LONG).show();
+        if (oldpwdEdit.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getApplicationContext(), "Fill the old password field", Toast.LENGTH_LONG).show();
             return;
         }
-        if (newpwdEdit.getText().toString().trim().equalsIgnoreCase("")){
-            Toast.makeText(getApplicationContext(),"Fill the new password field",Toast.LENGTH_LONG).show();
+        if (newpwdEdit.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getApplicationContext(), "Fill the new password field", Toast.LENGTH_LONG).show();
             return;
         }
 //        Intent intent = new Intent(this, PostGsmAuth.class);
 //        startActivity(intent);
-
-
 
 
 //        Intent intent=new Intent(getApplicationContext(),GsmAuthenticationActivity.class);
@@ -252,8 +316,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 new Intent(DELIVERED), 0);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
-        }
-        else {
+        } else {
             try {
                 // ---when the SMS has been sent---
 //                registerReceiver(new BroadcastReceiver() {
@@ -306,7 +369,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
                 SmsManager sms = SmsManager.getDefault();
                 oldpwd = oldpwdEdit.getText().toString();
                 newpwd = newpwdEdit.getText().toString();
-                String response = "AU "+oldpwd+" "+newpwd;
+                String response = "AU " + oldpwd + " " + newpwd;
                 Log.d("Insert: ", "Inserting ..");
                 db.addContact(new Contact(name, num.toString()));
 
@@ -338,8 +401,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
     private void getContactListActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 1);
-        }
-        else {
+        } else {
             Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(intent, 1);
         }
@@ -371,6 +433,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity{
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
