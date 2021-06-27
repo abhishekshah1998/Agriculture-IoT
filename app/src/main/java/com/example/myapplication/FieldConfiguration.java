@@ -73,7 +73,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
                 case Activity.RESULT_OK:
 //                                Toast.makeText(getBaseContext(), "SMS delivered",
 //                                        Toast.LENGTH_SHORT).show();
-                    readMessage();
+//                    readMessage();
                     break;
                 case Activity.RESULT_CANCELED:
 //                                Toast.makeText(getBaseContext(), "SMS not delivered",

@@ -191,7 +191,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
 //            status_gsm_authentication_view.setText(status);
 
             //Launch next Activity here after 5 sec
-            int TIME_OUT = 2000;
+            int TIME_OUT = 5000;
 
             new Handler().postDelayed(new Runnable() {
                 @Override
