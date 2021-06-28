@@ -143,7 +143,8 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                 if (sms_list.size() != 0) {
                     Log.d("status message", sms_list.get(0).getMsg());
                     String message = sms_list.get(0).getMsg();
-                    if (message.equals("Admin Set Successfully")) {
+                    if (message.equalsIgnoreCase(
+                            "Admin Set Successfully")) {
                         final String status = sms_list.get(0).getMsg();
                         status_gsm_authentication_view.setText(status);
                         break;
