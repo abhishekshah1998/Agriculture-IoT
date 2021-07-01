@@ -292,7 +292,7 @@ public class FieldFertigation extends AppCompatActivity {
                 byte[] data = response.getBytes("UTF-8");
 //                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                 String response1 = Base64.encodeToString(data, Base64.DEFAULT);
-                sms.sendTextMessage(num, null, response1, sentPI, deliveredPI);
+                sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();

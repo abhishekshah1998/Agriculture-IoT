@@ -482,7 +482,7 @@ public class FieldConfiguration extends AppCompatActivity implements TimePickerD
 
 //                Toast.makeText(getApplicationContext(),response1,Toast.LENGTH_LONG).show();
                 String response = Base64.encodeToString(data, Base64.DEFAULT);
-                sms.sendTextMessage(num, null, response, sentPI, deliveredPI);
+                sms.sendTextMessage(num, null, response1, sentPI, deliveredPI);
 //                Toast.makeText(getApplicationContext(), response1, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
