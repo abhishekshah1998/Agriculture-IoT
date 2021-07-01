@@ -92,8 +92,8 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, 1);
         }
         oldpwdEdit = (EditText) findViewById(R.id.old_pwd_gsm_auth_input_text);
 
@@ -143,7 +143,8 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
                 if (sms_list.size() != 0) {
                     Log.d("status message", sms_list.get(0).getMsg());
                     String message = sms_list.get(0).getMsg();
-                    if (message.equals("Admin Set Successfully")) {
+                    if (message.equalsIgnoreCase(
+                            "Admin Set Successfully")) {
                         final String status = sms_list.get(0).getMsg();
                         status_gsm_authentication_view.setText(status);
                         break;
@@ -191,7 +192,7 @@ public class GsmAuthenticationActivity extends AppCompatActivity {
 //            status_gsm_authentication_view.setText(status);
 
             //Launch next Activity here after 5 sec
-            int TIME_OUT = 2000;
+            int TIME_OUT = 5000;
 
             new Handler().postDelayed(new Runnable() {
                 @Override

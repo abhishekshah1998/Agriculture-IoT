@@ -48,8 +48,9 @@ public class PostGsmAuth extends AppCompatActivity {
                 case Activity.RESULT_OK:
 //                                Toast.makeText(getBaseContext(), "SMS delivered",
 //                                        Toast.LENGTH_SHORT).show();
+                    menuActivity();
                     Log.d("Before Read in postfsm", "Before read");
-                    readMessage();
+//                    readMessage();
                     Log.d("After Read in postgsm", "After read");
 
                     break;
